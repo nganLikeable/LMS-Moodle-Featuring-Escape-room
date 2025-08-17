@@ -1,0 +1,22 @@
+.leftLinks,
+.rightLinks {
+  display: flex;
+  gap: 1rem;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between; /*push to edges*/
+  align-items: center;
+  gap: 0;
+}
+
+.leftLinks li {
+  display: inline;
+}
+.leftLinks li:not(:last-child)::after {
+  content: " | ";
+}
