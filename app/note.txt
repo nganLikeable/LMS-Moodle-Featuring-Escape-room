@@ -1,3 +1,7 @@
 are buttons in nextjs not styled? without borders, just plain text, unlike in html
 
 screen expands when opening menu
+
+about link in nav bar doesnt works
+
+accessibility (alt)

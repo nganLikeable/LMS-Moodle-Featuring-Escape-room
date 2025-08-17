@@ -1,13 +1,13 @@
 "use client";
+import styles from "./Header.module.css";
 
-const Header = () => {
+export default function Header() {
   return (
-    <div>
-      <div id="student-info">
-        <p>Title</p>
-        <p>21519232</p>
-      </div>
-      <nav></nav>
-    </div>
+    <header className={styles.container}>
+      <ul>
+        <li>Title??</li>
+        <li> 21519232</li>
+      </ul>
+    </header>
   );
-};
+}
