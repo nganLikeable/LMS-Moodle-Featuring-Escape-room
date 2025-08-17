@@ -7,21 +7,13 @@ export default function NavBar() {
   return (
     <nav className={styles.navbar}>
       <div className={styles.container}>
-        {/*Left side links*/}
-        <ul className={styles.leftLinks}>
-          <li>
-            <Link href="/tabs">Tabs</Link>
-          </li>
-          <li>
-            <Link href="/pre-labs-questions">Pre-labs Questions</Link>
-          </li>
-          <li>
-            <Link href="/escape-room">Escape Room</Link>
-          </li>
-          <li>
-            <Link href="coding-races">Coding Races</Link>
-          </li>
-        </ul>
+        {/*Left side tabs*/}
+        <div className={styles.tabs}>
+          <button onClick={() => {}}>Tabs</button>
+          <button onClick={() => {}}>Pre-labs Questions</button>
+          <button onClick={() => {}}>Escape Room</button>
+          <button onClick={() => {}}>Coding Races</button>
+        </div>
 
         {/*Right links*/}
         <ul className={styles.rightLinks}>
