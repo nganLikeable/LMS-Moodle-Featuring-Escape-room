@@ -1,0 +1,29 @@
+.tabs {
+  display: flex;
+  gap: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.tablinks {
+  background: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease-in-out;
+}
+
+.tablinks:hover {
+  border-bottom: 3px solid #bbb;
+}
+
+.active {
+  font-weight: bold;
+  border-bottom: 3px solid #333;
+  transform: scale(1.05); /* grows */
+}
+
+.tabContent {
+  padding: 1rem 0;
+}

@@ -5,3 +5,5 @@ screen expands when opening menu
 about link in nav bar doesnt works
 
 accessibility (alt)
+
+delete node_modules folder after completion

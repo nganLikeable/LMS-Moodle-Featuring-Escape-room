@@ -2,6 +2,7 @@
 import Footer from "./Components/Footer";
 import Header from "./Components/Header";
 import NavBar from "./Components/NavBar";
+import Tabs from "./Components/Tabs";
 export default function Home() {
   return (
     <div>
@@ -9,6 +10,7 @@ export default function Home() {
       <hr></hr>
       <NavBar />
       <Footer />
+      <Tabs />
     </div>
   );
 }

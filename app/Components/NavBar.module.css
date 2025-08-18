@@ -17,6 +17,9 @@
   gap: 0;
 }
 
+.tabs {
+  overflow: hidden;
+}
 .tabs button {
   padding: 0.5rem 1rem;
   border: 1px solid #ccc;
