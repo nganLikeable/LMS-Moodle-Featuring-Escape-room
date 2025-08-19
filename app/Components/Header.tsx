@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <header className={styles.container}>
       <ul>
-        <li>Title??</li>
+        <li>Assignment 1</li>
         <li> 21519232</li>
       </ul>
     </header>
