@@ -7,3 +7,8 @@ about link in nav bar doesnt works
 accessibility (alt)
 
 delete node_modules folder after completion
+
+navbar in header 
+
+add the tabs, up to 15,
+the user inputs the content and it generates the html code with such tab and the content entered by user 
