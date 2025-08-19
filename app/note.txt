@@ -7,3 +7,7 @@ about link in nav bar doesnt works
 accessibility (alt)
 
 delete node_modules folder after completion
+
+ what are the options in menu?
+
+ 
