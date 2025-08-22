@@ -1,6 +1,6 @@
 // app/page.tsx
 import Footer from "./Components/Footer";
-import GeneratedTabs from "./Components/GeneratedTabs/GeneratedTabs";
+import GeneratedTabs from "./Components/GeneratedTabs";
 import Header from "./Components/Header";
 import NavBar from "./Components/NavBar";
 import Tabs from "./Components/Tabs";

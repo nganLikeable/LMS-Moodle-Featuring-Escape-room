@@ -10,4 +10,4 @@ delete node_modules folder after completion
 
  what are the options in menu?
 
- 
+ generated tabs would be under tabs content
