@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./GeneratedTabs.module.css";
 
 type Tab = {
@@ -9,44 +9,66 @@ type Tab = {
 };
 
 export default function GeneratedTabs() {
-  const [tab, setTab] = useState<Tab[]>([]); // add a new tab
-  const [activeTab, setActiveTab] = useState<number | null>(null); // either a tab or none is active
+  const [tabs, setTabs] = useState<Tab[]>([]);
+  const [activeTab, setActiveTab] = useState<number | null>(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
+  // measure and set height of text area dynamically
+  const textareaRef = useRef<HTMLTextAreaElement>(null); // object
+
+  // auto resize effect, runs whenever content changes
+  useEffect(() => {
+    // safety check if
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto"; // reset
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [content]);
+
   const addTab = () => {
-    if (!title.trim()) return; // avoid empty title field
+    if (!title.trim()) return; // prevent adding tabs with empty title
 
     const newTab: Tab = {
       id: Date.now(), // unique id
-      title: title,
-      content: content,
+      title,
+      content,
     };
-    setTab([...tab, newTab]); // add new tab to list
-    setActiveTab(newTab.id); // switch to new tab
-    setTitle(""); // reset input fields after adding
+    setTabs([...tabs, newTab]);
+    setActiveTab(newTab.id);
+    setTitle(""); // clear input for next entry
     setContent("");
   };
+
   return (
-    <div>
-      {/* Input fields */}
+    <div className={styles.container}>
+      {/* Form inputs */}
       <input
         type="text"
-        className={styles.form}
+        className={styles.tabTitle}
         placeholder="Tab Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-      ></input>
+      />
 
-      <input
-        type="text"
-        className={styles.form}
+      <textarea
+        ref={textareaRef}
+        className={styles.tabContent}
         placeholder="Tab Content"
         value={content}
         onChange={(e) => setContent(e.target.value)}
-      ></input>
+      />
+      <button className={styles.addTabButton} onClick={addTab}>
+        Add Tab
+      </button>
 
-      <button onClick={addTab}>Add Tab</button>
+      {/* Tab List Component */}
+      {/* <TabList tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} /> */}
+
+      {/* Render Active Tab’s Content */}
+      {/* <div className={styles.content}>
+        {activeTab && tabs.find((tab) => tab.id === activeTab)?.content}
+      </div> */}
     </div>
   );
 }

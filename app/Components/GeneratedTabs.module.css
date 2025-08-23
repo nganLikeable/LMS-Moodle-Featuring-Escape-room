@@ -1,73 +1,59 @@
+/* Container wrapping the entire component */
 .container {
-  padding: 1rem;
-}
-
-.tabBar {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.tabBar button {
-  padding: 0.5rem 1rem;
-  background: #eee;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  position: relative;
-}
-
-.tabBar button:hover {
-  background: #ddd;
-}
-
-.active {
-  background: #444;
-  color: white;
-}
-
-.closeBtn {
-  margin-left: 8px;
-  color: red;
-  cursor: pointer;
-}
-
-.form {
-  margin-top: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 12px;
+  max-width: 600px;
+  padding: 16px;
 }
 
-.form input,
-.form textarea {
-  padding: 0.5rem;
-  border: 1px solid #aaa;
-  border-radius: 5px;
+/* Tab title input */
+.tabTitle {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.form button {
-  padding: 0.5rem;
-  background: #4caf50;
+.tabTitle:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+/* Tab content textarea */
+.tabContent {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  resize: none; /* prevents manual resizing */
+  overflow: hidden; /* hides scrollbar */
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.tabContent:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
+/* Add Tab button */
+.addTabButton {
+  align-self: flex-start;
+  padding: 8px 16px;
+  font-size: 14px;
+  background-color: #1ba7b9;
   color: white;
   border: none;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
 
-.form button:hover {
-  background: #45a049;
-}
-
-.content {
-  margin-top: 1rem;
-  padding: 1rem;
-  border: 1px solid #ccc;
-}
-
-.generated {
-  margin-top: 1rem;
-  background: #111;
-  color: #0f0;
-  padding: 1rem;
-  white-space: pre-wrap;
-  border-radius: 5px;
+.addTabButton:hover {
+  background-color: #004c5f;
 }
