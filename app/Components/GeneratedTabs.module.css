@@ -57,3 +57,23 @@
 .addTabButton:hover {
   background-color: #004c5f;
 }
+.tabContentDisplay {
+  flex: 1;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  min-height: 120px;
+}
+.activeTab {
+  background-color: #e0f0ff;
+  font-weight: bold;
+}
+.tabItem {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+.tabBar {
+  display: flex;
+  flex-direction: column;
+  min-width: 120px;
+  border-right: 2px solid #ccc;
+}

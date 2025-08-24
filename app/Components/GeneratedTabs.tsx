@@ -26,6 +26,18 @@ export default function GeneratedTabs() {
     }
   }, [content]);
 
+  // load saved tabs on mount
+  useEffect(() => {
+    const saved = localStorage.getItem("tabs");
+    if (saved) {
+      setTabs(JSON.parse(saved));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("tabs", JSON.stringify(tabs));
+  }, [tabs]);
+
   const addTab = () => {
     if (!title.trim()) return; // prevent adding tabs with empty title
 
@@ -62,13 +74,25 @@ export default function GeneratedTabs() {
         Add Tab
       </button>
 
-      {/* Tab List Component */}
-      {/* <TabList tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} /> */}
+      {/* Tab bar */}
+      <div className={styles.tabBar}>
+        {tabs.map((tab) => (
+          <div
+            key={tab.id}
+            className={`${styles.tabItem} ${
+              tab.id === activeTab ? styles.activeTab : ""
+            }`}
+            onClick={() => setActiveTab(tab.id)}
+          >
+            {tab.title}
+          </div>
+        ))}
+      </div>
 
-      {/* Render Active Tab’s Content */}
-      {/* <div className={styles.content}>
+      {/* Active tab content */}
+      <div className={styles.tabContentDisplay}>
         {activeTab && tabs.find((tab) => tab.id === activeTab)?.content}
-      </div> */}
+      </div>
     </div>
   );
 }
