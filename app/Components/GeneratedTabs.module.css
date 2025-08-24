@@ -1,10 +1,15 @@
-/* Container wrapping the entire component */
 .container {
   display: flex;
+  gap: 2rem;
+  padding: 1rem;
+  max-width: 100%;
+}
+
+.inputFields {
+  display: flex;
+  flex: 0 0 250px;
   flex-direction: column;
-  gap: 12px;
-  max-width: 600px;
-  padding: 16px;
+  gap: 1rem;
 }
 
 /* Tab title input */
@@ -57,23 +62,21 @@
 .addTabButton:hover {
   background-color: #004c5f;
 }
-.tabContentDisplay {
-  flex: 1;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  min-height: 120px;
-}
-.activeTab {
-  background-color: #e0f0ff;
-  font-weight: bold;
-}
-.tabItem {
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-}
+
+/* tab bar */
 .tabBar {
   display: flex;
-  flex-direction: column;
+  flex: 0 0 300px;
+  flex-direction: column; /* still vertical */
   min-width: 120px;
-  border-right: 2px solid #ccc;
+}
+
+/* active tab content*/
+.tabContentDisplay {
+  flex: 0 0 300px;
+  height: 100%; /* match container height */
+  padding: 1rem;
+  border: 1px solid #ccc;
+  background: #fafafa;
+  overflow-y: auto; /* scroll if content too big */
 }

@@ -56,59 +56,40 @@ export default function GeneratedTabs() {
   return (
     <div className={styles.container}>
       {/* Form inputs */}
-      <input
-        type="text"
-        className={styles.tabTitle}
-        placeholder="Tab Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
+      <div className={styles.inputFields}>
+        <input
+          type="text"
+          className={styles.tabTitle}
+          placeholder="Tab Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
 
-      <textarea
-        ref={textareaRef}
-        className={styles.tabContent}
-        placeholder="Tab Content"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-      />
-      <button className={styles.addTabButton} onClick={addTab}>
-        Add Tab
-      </button>
-
-      <div className="d-flex">
-        {/* Left-side Tab Bar */}
+        <textarea
+          ref={textareaRef}
+          className={styles.tabContent}
+          placeholder="Tab Content"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
+        <button className={styles.addTabButton} onClick={addTab}>
+          Add Tab
+        </button>
+      </div>
+      {/* Left-side Tab Bar */}
+      <div className={styles.tabBar}>
         <TabList
           tabs={tabs}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
         />
-
-        {/* Right-side Active Tab Content */}
-        <div className="border p-3 flex-grow-1" style={{ minHeight: "150px" }}>
-          {activeTab
-            ? tabs.find((tab) => tab.id === activeTab)?.content
-            : "Select a tab or add a new one."}
-        </div>
       </div>
-      {/* Tab bar */}
-      <div className={styles.tabBar}>
-        {tabs.map((tab) => (
-          <div
-            key={tab.id}
-            className={`${styles.tabItem} ${
-              tab.id === activeTab ? styles.activeTab : ""
-            }`}
-            onClick={() => setActiveTab(tab.id)}
-          >
-            {tab.title}
-          </div>
-        ))}
-      </div>
-
-      {/* Active tab content */}
+      {/* Right-side Active Tab Content */}
       <div className={styles.tabContentDisplay}>
-        {activeTab && tabs.find((tab) => tab.id === activeTab)?.content}
-      </div>
+        {activeTab
+          ? tabs.find((tab) => tab.id === activeTab)?.content
+          : "Select a tab or add a new one."}
+      </div>{" "}
     </div>
   );
 }

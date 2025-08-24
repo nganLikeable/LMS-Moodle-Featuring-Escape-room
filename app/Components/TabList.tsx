@@ -1,5 +1,7 @@
 "use client";
 
+import styles from "./TabList.module.css";
+
 type Tab = {
   id: number;
   title: string;
@@ -18,14 +20,13 @@ export default function TabList({
   setActiveTab,
 }: TabListProps) {
   return (
-    <div
-      className="nav flex-column nav-pills me-3"
-      style={{ minWidth: "150px" }}
-    >
+    <div className={styles.tabList}>
       {tabs.map((tab) => (
         <button
           key={tab.id}
-          className={`nav-link ${tab.id === activeTab ? "active" : ""}`}
+          className={`${styles.tabButton} ${
+            activeTab === tab.id ? styles.active : ""
+          }`}
           onClick={() => setActiveTab(tab.id)}
         >
           {tab.title}
