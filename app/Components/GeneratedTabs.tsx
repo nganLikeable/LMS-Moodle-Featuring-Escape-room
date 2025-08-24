@@ -42,6 +42,10 @@ export default function GeneratedTabs() {
   const addTab = () => {
     if (!title.trim()) return; // prevent adding tabs with empty title
 
+    if (tabs.length >= 15) {
+      alert("You can only create 15 tabs!!");
+      return;
+    }
     const newTab: Tab = {
       id: Date.now(), // unique id
       title,
@@ -51,6 +55,16 @@ export default function GeneratedTabs() {
     setActiveTab(newTab.id);
     setTitle(""); // clear input for next entry
     setContent("");
+  };
+
+  const removeTab = (id: number) => {
+    const updatedTabs = tabs.filter((tab) => tab.id !== id);
+    setTabs(updatedTabs);
+
+    // check if deleted tab is currently active => make the first tab active or nothing is shown if no tabs left
+    if (activeTab === id) {
+      setActiveTab(updatedTabs.length > 0 ? updatedTabs[0].id : null);
+    }
   };
 
   return (
@@ -82,6 +96,7 @@ export default function GeneratedTabs() {
           tabs={tabs}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
+          removeTab={removeTab}
         />
       </div>
       {/* Right-side Active Tab Content */}
