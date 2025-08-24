@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import styles from "./GeneratedTabs.module.css";
+import TabList from "./TabList";
 
 type Tab = {
   id: number;
@@ -74,6 +75,21 @@ export default function GeneratedTabs() {
         Add Tab
       </button>
 
+      <div className="d-flex">
+        {/* Left-side Tab Bar */}
+        <TabList
+          tabs={tabs}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
+
+        {/* Right-side Active Tab Content */}
+        <div className="border p-3 flex-grow-1" style={{ minHeight: "150px" }}>
+          {activeTab
+            ? tabs.find((tab) => tab.id === activeTab)?.content
+            : "Select a tab or add a new one."}
+        </div>
+      </div>
       {/* Tab bar */}
       <div className={styles.tabBar}>
         {tabs.map((tab) => (
