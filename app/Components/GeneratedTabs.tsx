@@ -101,9 +101,18 @@ export default function GeneratedTabs() {
       </div>
       {/* Right-side Active Tab Content */}
       <div className={styles.tabContentDisplay}>
-        {activeTab
-          ? tabs.find((tab) => tab.id === activeTab)?.content
-          : "Select a tab or add a new one."}
+        {activeTab ? (
+          <div
+            dangerouslySetInnerHTML={{
+              __html:
+                tabs
+                  .find((tab) => tab.id === activeTab)
+                  ?.content.replace(/\n/g, "<br>") || "",
+            }} // store raw text in localStorage with '\n' but when displaying, replace it with <br> to reserve line breaks
+          />
+        ) : (
+          "Select a tab or add a new one."
+        )}
       </div>{" "}
     </div>
   );
