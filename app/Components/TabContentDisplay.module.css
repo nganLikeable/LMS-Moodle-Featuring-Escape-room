@@ -1,6 +1,7 @@
 .container {
   display: flex;
   gap: 2rem;
+  padding: 1rem;
 }
 .content {
   flex: 0 0 300px;

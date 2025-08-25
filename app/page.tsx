@@ -1,9 +1,9 @@
 // app/page.tsx
 import Footer from "./Components/Footer";
-import GeneratedTabs from "./Components/GeneratedTabs";
 import Header from "./Components/Header";
 import NavBar from "./Components/NavBar";
 import Output from "./Components/Output";
+import TabContainer from "./Components/TabContainer";
 import Tabs from "./Components/Tabs";
 export default function Home() {
   return (
@@ -12,7 +12,7 @@ export default function Home() {
       <hr></hr>
       <NavBar />
       <Tabs />
-      <GeneratedTabs />
+      <TabContainer />
       <Output />
       <Footer />
     </div>
