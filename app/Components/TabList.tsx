@@ -1,14 +1,7 @@
 "use client";
 
 import styles from "./TabList.module.css";
-import { Tab } from "./types";
-
-type TabListProps = {
-  tabs: Tab[]; // tabs to display
-  activeTab: number | null;
-  setActiveTab: (id: number) => void;
-  removeTab: (id: number) => void;
-};
+import { TabListProps } from "./types";
 
 export default function TabList({
   tabs = [],

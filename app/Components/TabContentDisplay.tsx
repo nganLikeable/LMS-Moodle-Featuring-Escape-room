@@ -1,19 +1,13 @@
 import styles from "././TabContentDisplay.module.css";
 import TabList from "./TabList";
-import { Tab } from "./types";
-type TabContentDisplayProps = {
-  tabs: Tab[];
-  activeTab: number | null;
-  setActiveTab: (id: number) => void;
-  removeTab: (id: number) => void;
-};
+import { TabListProps } from "./types";
 
 export default function TabContentDisplay({
   tabs,
   activeTab,
   setActiveTab,
   removeTab,
-}: TabContentDisplayProps) {
+}: TabListProps) {
   const activeContent = tabs.find((tab) => tab.id === activeTab)?.content || "";
 
   return (
