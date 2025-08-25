@@ -1,0 +1,9 @@
+/* active tab content*/
+.container {
+  flex: 0 0 300px;
+  height: 100%; /* match container height */
+  padding: 1rem;
+  border: 1px solid #ccc;
+  background: #fafafa;
+  overflow-y: auto; /* scroll if content too big */
+}

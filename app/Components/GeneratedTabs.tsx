@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import styles from "./GeneratedTabs.module.css";
+import TabContentDisplay from "./TabContentDisplay";
 import TabList from "./TabList";
 import { Tab } from "./types";
 export default function GeneratedTabs() {
@@ -93,21 +94,7 @@ export default function GeneratedTabs() {
           removeTab={removeTab}
         />
       </div>
-      {/* Right-side Active Tab Content */}
-      <div className={styles.tabContentDisplay}>
-        {activeTab ? (
-          <div
-            dangerouslySetInnerHTML={{
-              __html:
-                tabs
-                  .find((tab) => tab.id === activeTab)
-                  ?.content.replace(/\n/g, "<br>") || "",
-            }} // store raw text in localStorage with '\n' but when displaying, replace it with <br> to reserve line breaks
-          />
-        ) : (
-          "Select a tab or add a new one."
-        )}
-      </div>{" "}
+      <TabContentDisplay tabs={tabs} activeTab={activeTab} />
     </div>
   );
 }

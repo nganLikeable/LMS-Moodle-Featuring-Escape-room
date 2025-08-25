@@ -3,7 +3,3 @@ export type Tab = {
   title: string;
   content: string;
 };
-
-export type OutputProps = {
-  tabs: Tab[];
-};
