@@ -11,6 +11,7 @@ import { Tab } from "./types";
 
 export default function Output() {
   const [output, setOutput] = useState("");
+  const [tabs, setTabs] = useState<Tab[]>([]); // for re-rendering
   const generateHtml = () => {
     const saved = localStorage.getItem("tabs");
     let tabButtons = "";
@@ -18,7 +19,8 @@ export default function Output() {
 
     if (saved) {
       // convert back to array of objs
-      const tabs: Tab[] = JSON.parse(saved);
+      const tabs: Tab[] = JSON.parse(saved) as Tab[];
+      setTabs(tabs); // update tabs
 
       let i = 1; // button index
 
@@ -77,15 +79,12 @@ export default function Output() {
         <button className={styles.button} onClick={generateHtml}>
           Generate HTML
         </button>
-        {/* conditional rendering: return copy button if there's an output, otherwise, show nothing */}
-        {output && (
-          <button className={styles.button} onClick={copyToClipboard}>
-            Copy
-          </button>
-        )}
+        <button className={styles.button} onClick={copyToClipboard}>
+          Copy
+        </button>
       </div>
-
-      {output && (
+      {/*only shows output when there are tabs and output, otherwise, display text*/}
+      {tabs.length > 0 && output ? (
         <SyntaxHighlighter
           language="html"
           style={materialDark}
@@ -97,6 +96,18 @@ export default function Output() {
           }}
         >
           {output}
+        </SyntaxHighlighter>
+      ) : (
+        <SyntaxHighlighter
+          language="language"
+          style={materialDark}
+          customStyle={{
+            marginTop: "10px",
+            borderRadius: "8px",
+            padding: "12px",
+          }}
+        >
+          No tabs to generate code
         </SyntaxHighlighter>
       )}
     </div>
