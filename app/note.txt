@@ -8,7 +8,13 @@ accessibility (alt)
 
 delete node_modules folder after completion
 
+<<<<<<< HEAD
 navbar in header 
 
 add the tabs, up to 15,
 the user inputs the content and it generates the html code with such tab and the content entered by user 
+=======
+ what are the options in menu?
+
+ generated tabs would be under tabs content
+>>>>>>> feature-generated-tab

@@ -1,0 +1,40 @@
+.tabList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  align-items: flex-start;
+}
+
+.tabItem {
+  display: flex;
+}
+.tabButton {
+  padding: 0;
+  background: rgb(233, 233, 233);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.001s ease-in-out;
+  width: 100%;
+}
+
+.tabButton:hover {
+  background: rgb(235, 235, 235);
+}
+.active {
+  background: #b4b8bd;
+  border-color: #b4b8bd;
+}
+
+.deleteButton {
+  background: transparent;
+  border: none;
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+
+.deleteButton:hover {
+  color: darkred;
+}

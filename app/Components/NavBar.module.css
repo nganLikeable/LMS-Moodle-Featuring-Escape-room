@@ -1,45 +1,27 @@
-.tabs,
+.navbar {
+  width: 100%;
+  padding: 0.5rem 1rem;
+}
 .rightLinks {
   display: flex;
   gap: 1rem;
   list-style-type: none;
-  padding: 10;
-  margin: 10;
+  padding: 0;
+  margin-right: 5rem;
+  align-items: center;
 }
 
-.rightLinks {
-  margin-right: 5rem;
-}
 .container {
   display: flex;
   justify-content: space-between; /*push to edges*/
   align-items: center;
-  gap: 0;
 }
 
 .tabs {
-  overflow: hidden;
-}
-.tabs button {
-  padding: 0.5rem 1rem;
-  border: 1px solid #ccc;
-  background: #f5f5f5;
-  cursor: pointer;
-  border-radius: 4px;
-  font-weight: 500;
-  transition: background 0.2s, border-color 0.2s;
-}
-
-.tabs button:hover {
-  background: #e0e0e0;
-}
-
-.tabs button.active {
-  background: #0070f3;
-  color: white;
-  border-color: #0070f3;
+  display: flex;
+  gap: 1rem;
 }
 
 .HamburgerMenu {
-  position: fixed;
+  position: relative;
 }

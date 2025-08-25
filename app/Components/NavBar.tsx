@@ -8,14 +8,11 @@ export default function NavBar() {
     <nav className={styles.navbar}>
       <div className={styles.container}>
         {/*Left side tabs*/}
-        <div className={styles.tabs}>
-          <button onClick={() => {}}>Tabs</button>
-          <button onClick={() => {}}>Pre-labs Questions</button>
-          <button onClick={() => {}}>Escape Room</button>
-          <button onClick={() => {}}>Coding Races</button>
+        {/* <div className={styles.tabs}>
+          <Tabs />
         </div>
-
-        {/*Right links*/}
+ */}
+        {/*Right links and menu*/}
         <ul className={styles.rightLinks}>
           <li>
             <Link href="/about">About</Link>
