@@ -7,16 +7,15 @@
 
 .tabItem {
   display: flex;
-  gap: 0.5rem;
 }
 .tabButton {
-  flex: 1;
   padding: 0.2rem;
   background: rgb(233, 233, 233);
   cursor: pointer;
   border-radius: 3px;
   transition: background 0.005s ease-in-out;
   text-align: center;
+  width: 100%;
   height: auto;
   white-space: normal;
   word-wrap: break-word;

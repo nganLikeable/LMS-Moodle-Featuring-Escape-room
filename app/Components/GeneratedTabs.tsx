@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./GeneratedTabs.module.css";
 import TabContentDisplay from "./TabContentDisplay";
-import TabList from "./TabList";
 import { Tab } from "./types";
 export default function GeneratedTabs() {
   const [tabs, setTabs] = useState<Tab[]>([]);
@@ -85,16 +84,13 @@ export default function GeneratedTabs() {
           Add Tab
         </button>
       </div>
-      {/* Left-side Tab Bar */}
-      <div className={styles.tabBar}>
-        <TabList
-          tabs={tabs}
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          removeTab={removeTab}
-        />
-      </div>
-      <TabContentDisplay tabs={tabs} activeTab={activeTab} />
+
+      <TabContentDisplay
+        tabs={tabs}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        removeTab={removeTab}
+      />
     </div>
   );
 }
