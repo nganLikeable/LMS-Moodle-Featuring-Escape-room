@@ -1,12 +1,7 @@
 "use client";
 
 import styles from "./TabList.module.css";
-
-type Tab = {
-  id: number;
-  title: string;
-  content: string;
-};
+import { Tab } from "./types";
 
 type TabListProps = {
   tabs: Tab[]; // tabs to display

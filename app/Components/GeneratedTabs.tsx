@@ -2,13 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./GeneratedTabs.module.css";
 import TabList from "./TabList";
-
-type Tab = {
-  id: number;
-  title: string;
-  content: string;
-};
-
+import { Tab } from "./types";
 export default function GeneratedTabs() {
   const [tabs, setTabs] = useState<Tab[]>([]);
   const [activeTab, setActiveTab] = useState<number | null>(null);
