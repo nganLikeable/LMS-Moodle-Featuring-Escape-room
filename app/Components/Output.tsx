@@ -1,6 +1,12 @@
 "use client";
 
 import { useState } from "react";
+
+// to highlight html code
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+
+import styles from "./Output.module.css";
 import { Tab } from "./types";
 
 export default function Output() {
@@ -17,7 +23,7 @@ export default function Output() {
       let i = 1; // button index
 
       tabs.forEach((tab: Tab) => {
-        tabButtons += `<button class = "tablinks" onClick="openTab(event, '${tab.id}')">${i}. ${tab.title}</button>`;
+        tabButtons += `<button class = "tablinks" onClick="openTab(event, '${tab.id}')">${i}. ${tab.title}</button> \n`;
         tabContents += `
         <div id="${tab.id}" class="tabcontent" style="display:none; padding: 6px 12px; border: 1px solid #ccc; border-top: none;">
             <h3>${tab.title}</h3>
@@ -28,7 +34,8 @@ export default function Output() {
     }
 
     // generate html code using template literals
-    const html = `<!doctype html>
+    const html = `
+    <!doctype html>
     <html>
     <head>
         <title>Your Tabbed Interface</title>
@@ -37,8 +44,6 @@ export default function Output() {
     <body>
         ${tabButtons}
         ${tabContents}
-
-
         <!--JavaScript functions, taken from weekAssign.html-->
         <script>
             function openTab(evt, id) {
@@ -57,27 +62,42 @@ export default function Output() {
         </script>    
     </body>
     </html>
-
     `;
     setOutput(html);
   };
   const copyToClipboard = () => {
+    // copy text inside text field
     navigator.clipboard.writeText(output);
     alert("HTML copied to clipboard!");
   };
 
   return (
-    <div>
-      <button onClick={generateHtml}>Generate HTML</button>
+    <div className={styles.container}>
+      <div className={styles.outputButtons}>
+        <button className={styles.button} onClick={generateHtml}>
+          Generate HTML
+        </button>
+        {/* conditional rendering: return copy button if there's an output, otherwise, show nothing */}
+        {output && (
+          <button className={styles.button} onClick={copyToClipboard}>
+            Copy
+          </button>
+        )}
+      </div>
+
       {output && (
-        <>
-          <button onClick={copyToClipboard}>Copy HTML</button>
-          <textarea
-            value={output}
-            readOnly
-            style={{ width: "100%", height: "300px", marginTop: "10px" }}
-          />
-        </>
+        <SyntaxHighlighter
+          language="html"
+          style={materialDark}
+          wrapLines={true}
+          customStyle={{
+            marginTop: "10px",
+            borderRadius: "8px",
+            padding: "12px",
+          }}
+        >
+          {output}
+        </SyntaxHighlighter>
       )}
     </div>
   );
