@@ -2,7 +2,6 @@
 import Footer from "./Components/Footer";
 import Header from "./Components/Header";
 import NavBar from "./Components/NavBar";
-import Output from "./Components/Output";
 import TabContainer from "./Components/TabContainer";
 import Tabs from "./Components/Tabs";
 export default function Home() {
@@ -13,7 +12,6 @@ export default function Home() {
       <NavBar />
       <Tabs />
       <TabContainer />
-      <Output />
       <Footer />
     </div>
   );

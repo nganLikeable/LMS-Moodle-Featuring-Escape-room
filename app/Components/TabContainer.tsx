@@ -1,10 +1,12 @@
 "use client";
 import { useEffect, useState } from "react";
 
+import Output from "./Output";
 import TabContentDisplay from "./TabContentDisplay";
 import TabForm from "./TabForm";
 import { Tab } from "./types";
 
+import styles from "./TabContainer.module.css";
 export default function TabContainer() {
   const [tabs, setTabs] = useState<Tab[]>([]);
   const [activeTabId, setActiveTabId] = useState<number | null>(null);
@@ -58,7 +60,7 @@ export default function TabContainer() {
 
   const activeTab = tabs.find((tab) => tab.id === activeTabId) || null;
   return (
-    <div>
+    <div className={styles.container}>
       <TabForm
         mode="add"
         onSubmit={(title, content) => addTab(title, content)}
@@ -70,6 +72,7 @@ export default function TabContainer() {
         removeTab={removeTab}
         updateTab={updateTab}
       />
+      <Output />
     </div>
   );
 }

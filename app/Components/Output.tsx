@@ -83,33 +83,26 @@ export default function Output() {
           Copy
         </button>
       </div>
-      {/*only shows output when there are tabs and output, otherwise, display text*/}
-      {tabs.length > 0 && output ? (
+      <div className={styles.syntaxWrapper}>
         <SyntaxHighlighter
-          language="html"
+          // only shows output as html when there are tabs and output, otherwise, display text
+          language={tabs.length && output ? "html" : "text"}
           style={materialDark}
+          lineProps={{
+            style: { wordBreak: "break-all", whiteSpace: "pre-wrap" },
+          }}
           wrapLines={true}
+          showLineNumbers={true}
           customStyle={{
             marginTop: "10px",
             borderRadius: "8px",
             padding: "12px",
+            width: "500px",
           }}
         >
-          {output}
+          {output || "No tabs to generate code"}
         </SyntaxHighlighter>
-      ) : (
-        <SyntaxHighlighter
-          language="language"
-          style={materialDark}
-          customStyle={{
-            marginTop: "10px",
-            borderRadius: "8px",
-            padding: "12px",
-          }}
-        >
-          No tabs to generate code
-        </SyntaxHighlighter>
-      )}
+      </div>
     </div>
   );
 }
