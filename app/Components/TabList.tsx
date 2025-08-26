@@ -16,7 +16,7 @@ export default function TabList({
           <button
             key={tab.id}
             className={`${styles.tabButton} ${
-              activeTab === tab.id ? styles.active : ""
+              activeTab?.id === tab.id ? styles.active : ""
             }`}
             onClick={() => setActiveTab(tab.id)}
           >

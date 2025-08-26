@@ -37,34 +37,31 @@ export default function Output() {
 
     // generate html code using template literals
     const html = `
-    <!doctype html>
-    <html>
-    <head>
-        <title>Your Tabbed Interface</title>
-        <meta charset="UTF-8">    
-    </head>
-    <body>
-        ${tabButtons}
-        ${tabContents}
-        <!--JavaScript functions, taken from weekAssign.html-->
-        <script>
-            function openTab(evt, id) {
-                var i, tabcontent, tablinks;
-                tabcontent = document.getElementsByClassName("tabcontent");
-                for (i = 0; i < tabcontent.length; i++) {
-                    tabcontent[i].style.display = "none";
-                }
-                tablinks = document.getElementsByClassName("tablinks");
-                for (i = 0; i < tablinks.length; i++) {
-                    tablinks[i].className = tablinks[i].className.replace(" active", "");
-                }
-                document.getElementById(id).style.display = "block";
-                evt.currentTarget.className += " active";
-            }
-        </script>    
-    </body>
-    </html>
-    `;
+<!doctype html>
+<html>
+<head>
+  <title>Your Tabbed Interface</title>
+  <meta charset="UTF-8">    
+</head>
+<body>
+  ${tabButtons}
+  ${tabContents}
+  <!--JavaScript functions, taken from weekAssign.html-->
+  <script>
+    function openTab(evt, id) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";}
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");}
+      document.getElementById(id).style.display = "block";
+      evt.currentTarget.className += " active";}
+  </script>    
+</body>
+</html>
+`;
     setOutput(html);
   };
   const copyToClipboard = () => {
@@ -97,7 +94,7 @@ export default function Output() {
             marginTop: "10px",
             borderRadius: "8px",
             padding: "12px",
-            width: "500px",
+            width: "600px",
           }}
         >
           {output || "No tabs to generate code"}
