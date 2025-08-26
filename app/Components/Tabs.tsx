@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import TabContainer from "./TabContainer";
 import styles from "./Tabs.module.css";
-
+import { Tab } from "./types";
 export default function Tabs() {
   const [activeTab, setActiveTab] = useState("tabs"); // default
-
+  const [tabs, setTabs] = useState<Tab[]>([]);
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
@@ -50,7 +51,11 @@ export default function Tabs() {
       </div>
       {/* Tab content */}
       <div className={styles.tabContent}>
-        {activeTab === "tabs" && <p>Tabs content here...</p>}
+        {activeTab === "tabs" && (
+          <p>
+            <TabContainer tabs={tabs} setTabs={setTabs} />
+          </p>
+        )}
         {activeTab === "prelabs" && <p>Pre-labs Questions content here...</p>}
         {activeTab === "escape" && <p>Escape Room content here...</p>}
         {activeTab === "races" && <p>Coding Races content here...</p>}

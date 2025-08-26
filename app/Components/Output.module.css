@@ -21,6 +21,3 @@
 .button:hover {
   background-color: #004c5f;
 }
-.syntaxWrapper {
-  overflow-wrap: "break-word";
-}

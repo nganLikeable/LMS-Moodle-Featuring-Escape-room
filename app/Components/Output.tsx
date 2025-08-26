@@ -70,6 +70,22 @@ export default function Output() {
     alert("HTML copied to clipboard!");
   };
 
+  // common props used to render text (html or txt)
+  const highlighterProps = {
+    // if there is any tab and output to generate code => highlight in html, otherwise, show in plain text w/o highlighting
+    language: tabs.length > 0 && output ? "html" : "text",
+    style: materialDark,
+    showLineNumbers: true,
+    wrapLines: true,
+    lineProps: { style: { wordBreak: "break-all", whiteSpace: "pre-wrap" } },
+    customStyle: {
+      marginTop: "10px",
+      borderRadius: "8px",
+      padding: "12px",
+      width: "600px",
+      overflowX: "auto",
+    },
+  };
   return (
     <div className={styles.container}>
       <div className={styles.outputButtons}>
@@ -80,7 +96,8 @@ export default function Output() {
           Copy
         </button>
       </div>
-      <div className={styles.syntaxWrapper}>
+      {/* repeating syntaxhighlighter props but no time */}
+      {tabs.length && output ? (
         <SyntaxHighlighter
           // only shows output as html when there are tabs and output, otherwise, display text
           language={tabs.length && output ? "html" : "text"}
@@ -97,9 +114,27 @@ export default function Output() {
             width: "600px",
           }}
         >
-          {output || "No tabs to generate code"}
+          {output}
         </SyntaxHighlighter>
-      </div>
+      ) : (
+        <SyntaxHighlighter
+          language="text"
+          style={materialDark}
+          lineProps={{
+            style: { wordBreak: "break-all", whiteSpace: "pre-wrap" },
+          }}
+          wrapLines={true}
+          showLineNumbers={true}
+          customStyle={{
+            marginTop: "10px",
+            borderRadius: "8px",
+            padding: "12px",
+            width: "600px",
+          }}
+        >
+          {"No tabs to generate code"}
+        </SyntaxHighlighter>
+      )}
     </div>
   );
 }

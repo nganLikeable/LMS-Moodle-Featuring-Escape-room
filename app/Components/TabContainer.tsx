@@ -7,8 +7,12 @@ import TabForm from "./TabForm";
 import { Tab } from "./types";
 
 import styles from "./TabContainer.module.css";
-export default function TabContainer() {
-  const [tabs, setTabs] = useState<Tab[]>([]);
+
+interface TabContainerProps {
+  tabs: Tab[];
+  setTabs: React.Dispatch<React.SetStateAction<Tab[]>>;
+}
+export default function TabContainer({ tabs, setTabs }: TabContainerProps) {
   const [activeTabId, setActiveTabId] = useState<number | null>(null);
   const addTab = (title: string, content: string) => {
     if (!title.trim()) return; // prevent adding tabs with empty title
