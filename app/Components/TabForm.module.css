@@ -14,7 +14,7 @@
 
 /* Tab title input */
 .tabTitle {
-  width: 100%;
+  width: 150%;
   padding: 8px 12px;
   font-size: 14px;
   border: 1px solid #ccc;
@@ -30,7 +30,7 @@
 
 /* Tab content textarea */
 .tabContent {
-  width: 100%;
+  width: 150%;
   padding: 8px 12px;
   font-size: 14px;
   border: 1px solid #ccc;
@@ -45,9 +45,12 @@
   border-color: #3b82f6;
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
 }
-
-/* Add Tab button */
-.addTabButton {
+.btn {
+  display: flex;
+  gap: 0.5rem;
+}
+/* add/save/cancel buttons */
+.btn button {
   align-self: flex-start;
   padding: 8px 16px;
   font-size: 14px;
@@ -59,7 +62,7 @@
   transition: background-color 0.2s;
 }
 
-.addTabButton:hover {
+.btn button:hover {
   background-color: #004c5f;
 }
 

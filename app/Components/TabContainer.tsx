@@ -2,12 +2,12 @@
 import { useEffect, useState } from "react";
 
 import TabContentDisplay from "./TabContentDisplay";
-import GeneratedTabs from "./TabForm";
+import TabForm from "./TabForm";
 import { Tab } from "./types";
 
 export default function TabContainer() {
   const [tabs, setTabs] = useState<Tab[]>([]);
-  const [activeTab, setActiveTab] = useState<number | null>(null);
+  const [activeTabId, setActiveTabId] = useState<number | null>(null);
   const addTab = (title: string, content: string) => {
     if (!title.trim()) return; // prevent adding tabs with empty title
 
@@ -21,7 +21,7 @@ export default function TabContainer() {
       content,
     };
     setTabs([...tabs, newTab]);
-    setActiveTab(newTab.id);
+    setActiveTabId(newTab.id);
   };
 
   // load saved tabs on mount
@@ -41,18 +41,34 @@ export default function TabContainer() {
     setTabs(updatedTabs);
 
     // check if deleted tab is currently active => make the first tab active or nothing is shown if no tabs left
-    if (activeTab === id) {
-      setActiveTab(updatedTabs.length > 0 ? updatedTabs[0].id : null);
+    if (activeTabId === id) {
+      setActiveTabId(updatedTabs.length > 0 ? updatedTabs[0].id : null);
     }
   };
+  const updateTab = (id: number, title: string, content: string) => {
+    setTabs((prev) =>
+      prev.map((tab) =>
+        tab.id === id ? { ...tab, title: title, content: content } : tab
+      )
+    );
+    alert("Tab is updated!");
+  };
+
+  // derive active tab obj
+
+  const activeTab = tabs.find((tab) => tab.id === activeTabId) || null;
   return (
     <div>
-      <GeneratedTabs addTab={addTab} />
+      <TabForm
+        mode="add"
+        onSubmit={(title, content) => addTab(title, content)}
+      />
       <TabContentDisplay
         tabs={tabs}
         activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        setActiveTab={setActiveTabId}
         removeTab={removeTab}
+        updateTab={updateTab}
       />
     </div>
   );

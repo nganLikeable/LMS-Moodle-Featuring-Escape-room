@@ -3,9 +3,19 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./TabForm.module.css";
 
 type TabFormProps = {
-  addTab: (title: string, content: string) => void;
+  mode: "add" | "edit";
+  initialTitle?: string;
+  initialContent?: string;
+  onCancel?: () => void;
+  onSubmit: (title: string, content: string) => void;
 };
-export default function GeneratedTabs({ addTab }: TabFormProps) {
+export default function TabForm({
+  mode,
+  initialTitle = "",
+  initialContent = "",
+  onCancel,
+  onSubmit,
+}: TabFormProps) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
@@ -21,11 +31,21 @@ export default function GeneratedTabs({ addTab }: TabFormProps) {
     }
   }, [content]);
 
-  const handleAdd = () => {
-    addTab(title, content), setTitle(""); // clear input for next entry
-    setContent("");
-  };
+  // whenever parent hands down new initial props => overwrite
+  useEffect(() => {
+    setTitle(initialTitle);
+    setContent(initialContent);
+  }, [initialTitle, initialContent]); // dependency array - run whenever one of the values changes
 
+  const handleSubmit = () => {
+    if (title.trim() || content.trim()) {
+      onSubmit(title, content);
+      if (mode === "add") {
+        setTitle(""); // clear input for next entry
+        setContent("");
+      }
+    }
+  };
   return (
     <div className={styles.container}>
       {/* Form inputs */}
@@ -45,9 +65,14 @@ export default function GeneratedTabs({ addTab }: TabFormProps) {
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />
-        <button className={styles.addTabButton} onClick={handleAdd}>
-          Add Tab
-        </button>
+        <div className={styles.btn}>
+          <button onClick={handleSubmit}>
+            {mode === "add" ? "Add Tab" : "Save Changes"}
+          </button>
+          {mode === "edit" && onCancel && (
+            <button onClick={onCancel}>Cancel</button>
+          )}{" "}
+        </div>
       </div>
     </div>
   );

@@ -5,7 +5,8 @@ export type Tab = {
 };
 export type TabListProps = {
   tabs: Tab[];
-  activeTab: number | null;
-  setActiveTab: (id: number) => void;
+  activeTab: Tab | null;
+  setActiveTab: (id: number | null) => void;
   removeTab: (id: number) => void;
+  updateTab: (id: number, newTitle: string, newContent: string) => void;
 };
