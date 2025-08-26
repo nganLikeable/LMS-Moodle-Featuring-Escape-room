@@ -53,7 +53,7 @@ export default function Tabs() {
       <div className={styles.tabContent}>
         {activeTab === "tabs" && (
           <p>
-            <TabContainer tabs={tabs} setTabs={setTabs} />
+            <TabContainer />
           </p>
         )}
         {activeTab === "prelabs" && <p>Pre-labs Questions content here...</p>}
