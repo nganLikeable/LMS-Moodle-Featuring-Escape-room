@@ -12,9 +12,8 @@ export default function TabList({
   return (
     <div className={styles.tabList}>
       {tabs.map((tab) => (
-        <div className={styles.tabItem}>
+        <div key={tab.id} className={styles.tabItem}>
           <button
-            key={tab.id}
             className={`${styles.tabButton} ${
               activeTab?.id === tab.id ? styles.active : ""
             }`}
