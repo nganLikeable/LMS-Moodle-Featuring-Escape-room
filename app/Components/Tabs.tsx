@@ -56,9 +56,9 @@ export default function Tabs() {
             <TabContainer />
           </p>
         )}
-        {activeTab === "prelabs" && <p>Pre-labs Questions content here...</p>}
-        {activeTab === "escape" && <p>Escape Room content here...</p>}
-        {activeTab === "races" && <p>Coding Races content here...</p>}
+        {activeTab === "prelabs"}
+        {activeTab === "escape"}
+        {activeTab === "races"}
       </div>
     </div>
   );
