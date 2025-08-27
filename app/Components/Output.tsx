@@ -40,8 +40,7 @@ export default function Output() {
     }
 
     // generate html code using template literals
-    const html = `
-<!doctype html>
+    const html = `<!doctype html>
 <html>
 <head>
   <title>Your Tabbed Interface</title>
