@@ -1,0 +1,14 @@
+.container {
+  padding: 1rem;
+}
+
+.studentInfo p {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.vid {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
