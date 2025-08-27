@@ -18,6 +18,11 @@
   transition: all 0.3s ease;
 }
 
+:global([data-theme="dark"]) .bar,
+:global([data-theme="dark"]) .barOpen {
+  background-color: white;
+}
+
 .barOpen:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
@@ -59,4 +64,12 @@
 .menuOpen li a {
   text-decoration: none;
   color: #333;
+}
+
+:global([data-theme="dark"]) .menuOpen {
+  background-color: #333;
+}
+
+:global([data-theme="dark"]) .menuOpen li a {
+  color: white;
 }
