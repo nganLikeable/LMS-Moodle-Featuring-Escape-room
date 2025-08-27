@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { RiMoonLine, RiSunLine } from "react-icons/ri";
 import styles from "./ThemeToggle.module.css";
 export default function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { theme, systemTheme, setTheme } = useTheme();
   // prevent hydration error
   const [mounted, setMounted] = useState(false);
 
@@ -13,13 +13,16 @@ export default function ThemeToggle() {
   }, []);
 
   if (!mounted) return null; // render nothing on server
+  const resolvedTheme = theme === "system" ? systemTheme : theme;
 
   return (
     <div className={styles.container}>
       <button
-        onClick={() => (theme == "dark" ? setTheme("light") : setTheme("dark"))}
+        onClick={() =>
+          resolvedTheme == "dark" ? setTheme("light") : setTheme("dark")
+        }
       >
-        {theme === "light" ? <RiMoonLine /> : <RiSunLine />}
+        {resolvedTheme === "light" ? <RiMoonLine /> : <RiSunLine />}
       </button>
     </div>
   );
