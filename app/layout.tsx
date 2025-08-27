@@ -34,6 +34,7 @@ export default function RootLayout({
           attribute="data-theme"
           defaultTheme="system"
           enableSystem
+          storageKey="theme"
         >
           {" "}
           <Header />
