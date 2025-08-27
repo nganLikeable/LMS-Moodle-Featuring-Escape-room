@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import HamburgerMenu from "./HamburgerMenu";
 import styles from "./NavBar.module.css";
 
@@ -8,7 +7,7 @@ export default function NavBar() {
     <nav className={styles.navbar}>
       <div className={styles.container}>
         <HamburgerMenu />
-        <Link href="/about">About </Link>
+        <a href="/about">About </a>
       </div>
     </nav>
   );

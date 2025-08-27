@@ -2,26 +2,15 @@
   width: 100%;
   padding: 0.5rem 1rem;
 }
-.rightLinks {
-  display: flex;
-  gap: 1rem;
-  list-style-type: none;
-  padding: 0;
-  margin-right: 5rem;
-  align-items: center;
-}
-
 .container {
   display: flex;
   justify-content: space-between; /*push to edges*/
   align-items: center;
+  gap: 2rem;
 }
 
-.tabs {
-  display: flex;
-  gap: 1rem;
-}
-
-.HamburgerMenu {
-  position: relative;
+.container a:hover {
+  color: #0b135f;
+  border-bottom: 2px solid #0b135f;
+  cursor: pointer;
 }
