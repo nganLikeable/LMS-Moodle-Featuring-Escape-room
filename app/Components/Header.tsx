@@ -1,6 +1,7 @@
 "use client";
 import styles from "./Header.module.css";
 import NavBar from "./NavBar";
+import ThemeToggle from "./ThemeToggle";
 export default function Header() {
   return (
     <header className={styles.container}>
@@ -10,8 +11,9 @@ export default function Header() {
           <li>Moodle</li>
         </ul>
       </div>
-      <div className={styles.nav}>
+      <div className={styles.below}>
         <NavBar />
+        <ThemeToggle />
       </div>
     </header>
   );

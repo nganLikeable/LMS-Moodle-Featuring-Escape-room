@@ -7,18 +7,8 @@ export default function NavBar() {
   return (
     <nav className={styles.navbar}>
       <div className={styles.container}>
-        {/*Left side tabs*/}
-        {/* <div className={styles.tabs}>
-          <Tabs />
-        </div>
- */}
-        {/*Right links and menu*/}
-        <ul className={styles.rightLinks}>
-          <li>
-            <Link href="/about">About</Link>
-          </li>
-          <HamburgerMenu />
-        </ul>
+        <HamburgerMenu />
+        <Link href="/about">About </Link>
       </div>
     </nav>
   );
