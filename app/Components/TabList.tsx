@@ -1,9 +1,23 @@
 "use client";
+import { useEffect, useState } from "react";
 
 import styles from "./TabList.module.css";
 import { TabListProps } from "./types";
 
-export default function TabList({
+// prevents hydration error - only renders on the client
+export default function TabListWrapper(props: TabListProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null; // render nothing on server
+
+  return <TabList {...props} />;
+}
+
+function TabList({
   tabs = [],
   activeTab,
   setActiveTab,
