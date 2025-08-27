@@ -52,9 +52,9 @@ export default function Tabs() {
       {/* Tab content */}
       <div className={styles.tabContent}>
         {activeTab === "tabs" && <TabContainer />}
-        {activeTab === "prelabs" && <p>Pre-labs Questions content here...</p>}
-        {activeTab === "escape" && <p>Escape Room content here...</p>}
-        {activeTab === "races" && <p>Coding Races content here...</p>}
+        {activeTab === "prelabs" && <p>To be updated</p>}
+        {activeTab === "escape" && <p>To be updated</p>}
+        {activeTab === "races" && <p>To be updated</p>}
       </div>
     </div>
   );

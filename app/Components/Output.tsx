@@ -1,7 +1,7 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // to highlight html code
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -17,6 +17,14 @@ export default function Output() {
   const [output, setOutput] = useState("");
   const [tabs, setTabs] = useState<Tab[]>([]); // for re-rendering
   const [mounted, setMounted] = useState(false); // ensure rendering on client only
+  // pick theme for code/txt output
+  const { theme, systemTheme } = useTheme();
+  const effectiveTheme = theme === "system" ? systemTheme : theme;
+  const syntaxTheme = effectiveTheme === "dark" ? materialDark : materialLight;
+
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null;
   const generateHtml = () => {
     setMounted(true);
     const saved = localStorage.getItem("tabs");
@@ -74,10 +82,6 @@ export default function Output() {
     navigator.clipboard.writeText(output);
     alert("HTML copied to clipboard!");
   };
-  // pick theme for code/txt output
-  const { theme, systemTheme } = useTheme();
-  const effectiveTheme = theme === "system" ? systemTheme : theme;
-  const syntaxTheme = effectiveTheme === "dark" ? materialDark : materialLight;
   // if there is code to highlight
   const hasCode = tabs.length > 0 && output.trim().length > 0;
   const language = hasCode ? "html" : "text";
