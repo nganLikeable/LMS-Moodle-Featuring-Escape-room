@@ -23,6 +23,7 @@
   border-radius: 6px;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: #e9e7e7;
 }
 
 .tabTitle:focus {
@@ -42,6 +43,7 @@
   resize: none; /* prevents manual resizing */
   overflow: hidden; /* hides scrollbar */
   transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: #e9e7e7;
 }
 
 .tabContent:focus {
@@ -85,4 +87,17 @@
   border: 1px solid #ccc;
   background: #fafafa;
   overflow-y: auto; /* scroll if content too big */
+}
+
+/* dark mode */
+:global([data-theme="dark"]) .tabTitle,
+:global([data-theme="dark"]) .tabContent {
+  background: #4b5058;
+  border: 1px solid #444;
+  color: #dedede;
+}
+
+:global([data-theme="dark"]) .tabTitle::placeholder,
+:global([data-theme="dark"]) .tabContent::placeholder {
+  color: #aaa;
 }
