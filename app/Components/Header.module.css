@@ -1,20 +1,26 @@
-/* NavBar.module.css */
-.navbar {
-  width: 100%;
-  background-color: var(--background);
-  color: var(--foreground);
+.container {
+  overflow: visible;
+  position: relative;
+  z-index: 1;
+}
+.id {
+  display: flex;
+  padding: 1rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.title {
+  margin: 0 auto;
   padding: 1rem;
 }
 
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start; /* everything aligns to left */
-  gap: 1rem;
+.title h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
 }
-
-.navbar a {
-  text-decoration: none;
-  color: inherit;
-  font-weight: 500;
+.below {
+  display: flex;
+  width: 100%;
 }
