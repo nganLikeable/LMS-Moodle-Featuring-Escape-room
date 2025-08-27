@@ -1,24 +1,16 @@
 "use client";
-import { useEffect, useState } from "react";
-
+import { useTheme } from "next-themes";
+import { RiMoonLine, RiSunLine } from "react-icons/ri";
+import styles from "./ThemeToggle.module.css";
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState("light");
-
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-  }, [theme]);
-
+  const { theme, setTheme } = useTheme();
   return (
-    <button
-      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      style={{
-        padding: "6px 12px",
-        borderRadius: "8px",
-        border: "1px solid gray",
-        cursor: "pointer",
-      }}
-    >
-      {theme === "light" ? "🌙 Dark Mode" : "☀️ Light Mode"}
-    </button>
+    <div className={styles.container}>
+      <button
+        onClick={() => (theme == "dark" ? setTheme("light") : setTheme("dark"))}
+      >
+        {theme === "light" ? <RiMoonLine /> : <RiSunLine />}
+      </button>
+    </div>
   );
 }

@@ -1,10 +1,14 @@
 "use client";
 
+import { useTheme } from "next-themes";
 import { useState } from "react";
 
 // to highlight html code
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { materialDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import {
+  materialDark,
+  materialLight,
+} from "react-syntax-highlighter/dist/esm/styles/prism";
 
 import styles from "./Output.module.css";
 import { Tab } from "./types";
@@ -36,8 +40,7 @@ export default function Output() {
     }
 
     // generate html code using template literals
-    const html = `
-<!doctype html>
+    const html = `<!doctype html>
 <html>
 <head>
   <title>Your Tabbed Interface</title>
@@ -69,12 +72,20 @@ export default function Output() {
     navigator.clipboard.writeText(output);
     alert("HTML copied to clipboard!");
   };
+  // pick theme for code/txt output
+  const { theme, systemTheme } = useTheme();
+  const effectiveTheme = theme === "system" ? systemTheme : theme;
+  const syntaxTheme = effectiveTheme === "dark" ? materialDark : materialLight;
+  // if there is code to highlight
+  const hasCode = tabs.length > 0 && output.trim().length > 0;
+  const language = hasCode ? "html" : "text";
+  const renderedOutput = language === "html" ? output : "No tabs to generate";
 
   // common props used to render text (html or txt)
   const highlighterProps = {
     // if there is any tab and output to generate code => highlight in html, otherwise, show in plain text w/o highlighting
-    language: tabs.length > 0 && output ? "html" : "text",
-    style: materialDark,
+    language: language,
+    style: syntaxTheme,
     showLineNumbers: true,
     wrapLines: true,
     lineProps: { style: { wordBreak: "break-all", whiteSpace: "pre-wrap" } },
@@ -85,7 +96,8 @@ export default function Output() {
       width: "600px",
       overflowX: "auto",
     },
-  };
+  } as const; // preserve all literals as narrow types
+
   return (
     <div className={styles.container}>
       <div className={styles.outputButtons}>
@@ -96,45 +108,10 @@ export default function Output() {
           Copy
         </button>
       </div>
-      {/* repeating syntaxhighlighter props but no time */}
-      {tabs.length && output ? (
-        <SyntaxHighlighter
-          // only shows output as html when there are tabs and output, otherwise, display text
-          language={tabs.length && output ? "html" : "text"}
-          style={materialDark}
-          lineProps={{
-            style: { wordBreak: "break-all", whiteSpace: "pre-wrap" },
-          }}
-          wrapLines={true}
-          showLineNumbers={true}
-          customStyle={{
-            marginTop: "10px",
-            borderRadius: "8px",
-            padding: "12px",
-            width: "600px",
-          }}
-        >
-          {output}
-        </SyntaxHighlighter>
-      ) : (
-        <SyntaxHighlighter
-          language="text"
-          style={materialDark}
-          lineProps={{
-            style: { wordBreak: "break-all", whiteSpace: "pre-wrap" },
-          }}
-          wrapLines={true}
-          showLineNumbers={true}
-          customStyle={{
-            marginTop: "10px",
-            borderRadius: "8px",
-            padding: "12px",
-            width: "600px",
-          }}
-        >
-          {"No tabs to generate code"}
-        </SyntaxHighlighter>
-      )}
+      <SyntaxHighlighter {...highlighterProps}>
+        {/* only shows output as html when there are tabs and output, otherwise, display text */}
+        {renderedOutput}
+      </SyntaxHighlighter>
     </div>
   );
 }

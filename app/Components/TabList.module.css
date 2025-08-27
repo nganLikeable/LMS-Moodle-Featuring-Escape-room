@@ -20,12 +20,20 @@
   word-wrap: break-word;
 }
 
+:global([data-theme="dark"]) .tabButton {
+  background: #4b5058;
+  color: white;
+}
+
 .tabButton:hover {
   background: rgb(163, 158, 158);
 }
 .tabButton.active {
   background: rgb(163, 158, 158);
   border-color: #b4b8bd;
+}
+:global([data-theme="dark"]) .tabButton.active {
+  background: #1a1f27;
 }
 
 .deleteButton {
