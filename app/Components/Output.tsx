@@ -16,7 +16,9 @@ import { Tab } from "./types";
 export default function Output() {
   const [output, setOutput] = useState("");
   const [tabs, setTabs] = useState<Tab[]>([]); // for re-rendering
+  const [mounted, setMounted] = useState(false); // ensure rendering on client only
   const generateHtml = () => {
+    setMounted(true);
     const saved = localStorage.getItem("tabs");
     let tabButtons = "";
     let tabContents = "";
