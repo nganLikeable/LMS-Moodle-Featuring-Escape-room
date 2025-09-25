@@ -21,4 +21,7 @@ A Next.js app with manual CSS styling featuring a dark/light/system mode. This a
    - If no content exists → a plain text message is shown. <br>
    - If content exists → an HTML code snippet for the tabbed interface is generated.</li>
   <li>Click <b>Copy</b> to copy the generated HTML to the clipboard.</li>
+<<<<<<< HEAD
 
+=======
+>>>>>>> af0faf8 (added readme)
