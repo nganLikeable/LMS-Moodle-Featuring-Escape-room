@@ -1,4 +1,4 @@
-import styles from "./Footer.module.css"
+import styles from "./Footer.module.css";
 export default function Footer() {
   const today = new Date();
   const formattedDate = `${today.getDate()}/${

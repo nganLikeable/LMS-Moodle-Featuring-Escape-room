@@ -1,7 +1,7 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import styles from "./HamburgerMenu.module.css";
-
 const HamburgerMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -19,7 +19,7 @@ const HamburgerMenu = () => {
       <nav className={isOpen ? styles.menuOpen : styles.menu}>
         <ul>
           <li>
-            <a href="/">Home</a>
+            <Link href="/">Home</Link>
           </li>
         </ul>
       </nav>
