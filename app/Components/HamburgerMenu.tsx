@@ -9,6 +9,11 @@ const HamburgerMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  // close menu when clicked
+  const handleClick = () => {
+    setIsOpen(false);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.hamburger} onClick={toggleMenu}>
@@ -17,9 +22,20 @@ const HamburgerMenu = () => {
         <div className={isOpen ? styles.barOpen : styles.bar}></div>
       </div>
       <nav className={isOpen ? styles.menuOpen : styles.menu}>
-        <ul>
+        <ul className={styles.links}>
           <li>
-            <Link href="/">Home</Link>
+            <Link href="/" onClick={handleClick}>
+              Home
+            </Link>
+            <Link href="/about" onClick={handleClick}>
+              About
+            </Link>
+            <Link href="/tab-generator" onClick={handleClick}>
+              Tab Generator
+            </Link>
+            <Link href="/escape-room" onClick={handleClick}>
+              Escape Room
+            </Link>
           </li>
         </ul>
       </nav>
