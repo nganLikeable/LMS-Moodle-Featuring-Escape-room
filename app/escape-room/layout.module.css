@@ -1,0 +1,6 @@
+.escapeRoomContainer {
+  font-family: "Century Gothic";
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

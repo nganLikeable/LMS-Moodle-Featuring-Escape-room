@@ -8,9 +8,9 @@ export default function Header() {
       <div className={styles.id}>
         <span>21519232</span>
       </div>
-      <div className={styles.title}>
+      {/* <div className={styles.title}>
         <h1>Moodle</h1>
-      </div>
+      </div> */}
       <hr></hr>
       <div className={styles.below}>
         <NavBar />
