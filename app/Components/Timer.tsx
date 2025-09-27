@@ -1,34 +1,49 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+import {
+  decrementTime,
+  pauseTimer,
+  resetTimer,
+  setCustomMinutes,
+  startTimer,
+} from "../store/timerSlice";
+
 type TimerProps = {
   onTimeUp: () => void;
 };
 
 export default function Timer({ onTimeUp }: TimerProps) {
-  const [customMinutes, setCustomMinutes] = useState(5);
-  const [timeLeft, setTimeLeft] = useState(customMinutes * 60);
-  const [isRunning, setIsRunning] = useState(false);
+  const dispatch = useDispatch();
+  const { timeLeft, isRunning, customMinutes } = useSelector(
+    (state: any) => state.timer
+  );
+
+  // const [customMinutes, setCustomMinutes] = useState(5);
+  // const [timeLeft, setTimeLeft] = useState(customMinutes * 60);
+  // const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
     if (!isRunning) return;
 
     if (timeLeft <= 0) {
-      setIsRunning(false);
+      dispatch(pauseTimer());
       onTimeUp();
       return;
     }
 
     // set time left every 1s (1000ms)
     const interval = setInterval(() => {
-      setTimeLeft((prev) => prev - 1);
+      dispatch(decrementTime());
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [isRunning, timeLeft, onTimeUp]);
+  }, [isRunning, timeLeft, dispatch, onTimeUp]);
 
-  // keep time left in sync in sec
-  useEffect(() => {
-    setTimeLeft(customMinutes * 60);
-  }, [customMinutes]);
+  // // keep time left in sync in sec
+  // useEffect(() => {
+  //   setTimeLeft(customMinutes * 60);
+  // }, [customMinutes]);
 
   // format time
   const minutes = Math.floor(timeLeft / 60)
@@ -44,20 +59,13 @@ export default function Timer({ onTimeUp }: TimerProps) {
       <input
         type="number"
         value={customMinutes}
-        onChange={(e) => setCustomMinutes(Number(e.target.value))}
+        onChange={(e) => dispatch(setCustomMinutes(Number(e.target.value)))}
         disabled={isRunning}
       ></input>
       <span>minutes</span>
-      <button onClick={() => setIsRunning(true)}>Start</button>
-      <button onClick={() => setIsRunning(false)}>Pause</button>
-      <button
-        onClick={() => {
-          setIsRunning(false);
-          setTimeLeft(customMinutes * 60); // convert m => s
-        }}
-      >
-        Reset
-      </button>
+      <button onClick={() => dispatch(startTimer())}>Start</button>
+      <button onClick={() => dispatch(pauseTimer())}>Pause</button>
+      <button onClick={() => dispatch(resetTimer())}>Reset</button>
     </div>
   );
 }
