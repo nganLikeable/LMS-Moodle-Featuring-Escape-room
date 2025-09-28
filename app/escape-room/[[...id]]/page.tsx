@@ -1,9 +1,9 @@
 "use client";
-import Stage1 from "@/app/Components/Stage1";
+import Level from "@/app/Components/Level";
+import { levelsConfig } from "@/app/Components/LevelsConfig";
 import { typeOnScreen } from "@/app/utils/typeOnScreen";
 import { useParams, useRouter } from "next/navigation";
 import Typewriter from "typewriter-effect";
-
 import styles from "./page.module.css";
 
 function Intro() {
@@ -29,25 +29,34 @@ function Intro() {
   );
 }
 export default function EscapeRoomStage() {
+  const router = useRouter();
   const params = useParams(); // show content based on url
   const id = Array.isArray(params.id) ? params.id[0] : params.id; // handle single and optional empty routes
+  const config = levelsConfig.find((lvl) => lvl.id === Number(id));
+  console.log("id:", id); // debug
+  console.log("config:", config); // debug
 
-  // if no id => optional page
+  // show intro if no id
   if (!id) {
-    return Intro();
-  }
-  switch (id) {
-    case "1":
-      return <Stage1 />;
-    // case "2":
-    //   return <Stage2 />;
-    // case "3":
-    //   return <Stage3 />;
-    // case "4":
-    //   return <Stage4 />;
-    // case "5":
-    //   return <Stage5 />;
+    return <Intro />;
   }
 
-  return <div>Stage not found</div>;
+  // show level if found
+  else if (config) {
+    return <Level config={config} />;
+
+    // show error if level not found
+  } else {
+    return (
+      <div>
+        <div>
+          <h1>Error 404: Level Not Found</h1>
+          <p>The escape room stage specified in the URL does not exist.</p>
+          <button onClick={() => router.push("/escape-room")}>
+            Go to Home page
+          </button>
+        </div>
+      </div>
+    );
+  }
 }
