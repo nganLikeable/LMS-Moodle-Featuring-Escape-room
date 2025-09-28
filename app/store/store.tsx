@@ -2,16 +2,18 @@ import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // local storage
+import gameReducer from "./gameSlice";
 import timerReducer from "./timerSlice";
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["timer"],
+  whitelist: ["timer", "game"],
 };
 
 const rootReducer = combineReducers({
   timer: timerReducer,
+  game: gameReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

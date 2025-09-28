@@ -30,6 +30,7 @@ const initialState: GameState = {
 const gameSlice = createSlice({
   name: "game",
   initialState,
+  // updators
   reducers: {
     solveLevel: (
       state,
@@ -55,6 +56,7 @@ const gameSlice = createSlice({
     },
   },
 });
-
+// export action creators functions for components
 export const { solveLevel, resetGame } = gameSlice.actions;
+// export reducers for redux config
 export default gameSlice.reducer;
