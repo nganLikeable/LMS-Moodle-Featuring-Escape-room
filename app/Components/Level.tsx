@@ -5,9 +5,9 @@ import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { solveLevel } from "../store/gameSlice";
 import { RootState } from "../store/store";
-import { LevelConfig, levelsConfig } from "./LevelsConfig";
-
 import styles from "./Level.module.css";
+import { LevelConfig, levelsConfig } from "./LevelsConfig";
+import TimerDisplay from "./TimerDisplay";
 interface LevelProps {
   config: LevelConfig;
 }
@@ -54,6 +54,7 @@ export default function Level({ config }: LevelProps) {
 
   return (
     <div className={styles.container}>
+      <TimerDisplay />
       <div className={styles.narrative}>
         <h1>Chapter {config.id}</h1>
         <p>{config.narrative}</p>

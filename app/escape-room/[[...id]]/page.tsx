@@ -1,11 +1,15 @@
 "use client";
 import Level from "@/app/Components/Level";
 import { levelsConfig } from "@/app/Components/LevelsConfig";
+import TimerDisplay from "@/app/Components/TimerDisplay";
+import TimerEngine from "@/app/Components/TimerEngine";
+import TimerModal from "@/app/Components/TimerModal";
+import { openTimerModal } from "@/app/store/timerSlice";
 import { typeOnScreen } from "@/app/utils/typeOnScreen";
 import { useParams, useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
 import Typewriter from "typewriter-effect";
 import styles from "./page.module.css";
-
 function Intro() {
   const intro = [
     "Prologue",
@@ -13,6 +17,7 @@ function Intro() {
     "Your mission is to infiltrate her digital environment. You must debug, decode, and compile five fragmented pieces of code to trace her steps and discover her fate.",
     "The clock is running. Every second counts. Do not fail.",
   ];
+  const dispatch = useDispatch();
   const router = useRouter(); // navigate
 
   return (
@@ -23,7 +28,15 @@ function Intro() {
           onInit={(typewriter) => typeOnScreen(typewriter, intro)}
           options={{ delay: 10 }}
         />
-        <button onClick={() => router.push("/escape-room/1")}>Start</button>
+        <button
+          onClick={() => {
+            router.push("/escape-room/1");
+            dispatch(openTimerModal());
+          }}
+        >
+          Start
+        </button>
+        <TimerModal />
       </div>
     </div>
   );
@@ -49,7 +62,11 @@ export default function EscapeRoomStage() {
   } else {
     return (
       <div>
+        <TimerEngine />
+        {/* pops up only when showModal == true */}
+        <TimerModal />
         <div>
+          <TimerDisplay />
           <h1>Error 404: Level Not Found</h1>
           <p>The escape room stage specified in the URL does not exist.</p>
           <button onClick={() => router.push("/escape-room")}>
