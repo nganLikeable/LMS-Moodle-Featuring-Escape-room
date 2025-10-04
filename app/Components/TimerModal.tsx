@@ -1,14 +1,17 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import {
   closeTimerModal,
   setCustomMinutes,
   startTimer,
 } from "../store/timerSlice";
-
 export default function TimerModal() {
   const dispatch = useDispatch();
   const { customMinutes, showModal } = useSelector((state: any) => state.timer);
+  console.log({ showModal });
+  const router = useRouter();
+
   if (!showModal) return null;
   return (
     <div>
@@ -23,6 +26,7 @@ export default function TimerModal() {
         onClick={() => {
           dispatch(startTimer());
           dispatch(closeTimerModal());
+          router.push("./escape-room/1");
         }}
       >
         Start

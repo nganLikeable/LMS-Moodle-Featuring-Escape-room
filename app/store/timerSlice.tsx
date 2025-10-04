@@ -24,7 +24,7 @@ export const timerSlice = createSlice({
   reducers: {
     startTimer: (state) => {
       state.isRunning = true;
-      state.showModal = false;
+      // state.showModal = true;
       state.showTimer = true;
     },
     decrementTime: (state) => {

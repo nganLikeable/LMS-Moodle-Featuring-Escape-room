@@ -11,6 +11,13 @@ const persistConfig = {
   whitelist: ["timer", "game"],
 };
 
+const timerPersistConfig = {
+  key: "timer",
+  storage,
+  blacklist: ["showModal", "showTimer"], // transient UI flags stay out of storage
+};
+const persistedTimerReducer = persistReducer(timerPersistConfig, timerReducer);
+
 const rootReducer = combineReducers({
   timer: timerReducer,
   game: gameReducer,

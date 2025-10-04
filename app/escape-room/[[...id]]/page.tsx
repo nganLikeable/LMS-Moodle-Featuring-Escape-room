@@ -30,11 +30,10 @@ function Intro() {
         />
         <button
           onClick={() => {
-            router.push("/escape-room/1");
             dispatch(openTimerModal());
           }}
         >
-          Start
+          Ready
         </button>
         <TimerModal />
       </div>
@@ -49,31 +48,22 @@ export default function EscapeRoomStage() {
   console.log("id:", id); // debug
   console.log("config:", config); // debug
 
-  // show intro if no id
-  if (!id) {
-    return <Intro />;
-  }
-
-  // show level if found
-  else if (config) {
-    return <Level config={config} />;
-
-    // show error if level not found
-  } else {
-    return (
-      <div>
-        <TimerEngine />
-        {/* pops up only when showModal == true */}
-        <TimerModal />
+  return (
+    <>
+      {!id ? (
+        <Intro />
+      ) : config ? (
+        <Level config={config} />
+      ) : (
         <div>
+          <TimerEngine />
           <TimerDisplay />
           <h1>Error 404: Level Not Found</h1>
-          <p>The escape room stage specified in the URL does not exist.</p>
           <button onClick={() => router.push("/escape-room")}>
             Go to Home page
           </button>
         </div>
-      </div>
-    );
-  }
+      )}
+    </>
+  );
 }

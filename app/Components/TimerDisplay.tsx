@@ -3,6 +3,8 @@ import { useTimer } from "@/hooks/useTimer";
 import { useSelector } from "react-redux";
 export default function TimerDisplay() {
   const { timeLeft, showTimer } = useSelector((state: any) => state.timer);
+
+  console.log({ showTimer });
   if (!showTimer) return null;
   const { minutes, seconds } = useTimer();
 
