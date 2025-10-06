@@ -1,13 +1,16 @@
-"use client";
-import { useRouter } from "next/navigation"; // allows changing routes inside client components
+import {FormEvent} from 'react'
+import {useRouter} from 'next/router'
 
-export default function LogIn() {
-  const router = useRouter();
-  return (
-    <div>
-      <button type="button" onClick={() => router.push("/escape-room")}>
-        Start
-      </button>
-    </div>
-  );
+export default function LoginPage() {
+    const router = useRouter();
+
+    async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault()
+
+        const formData = new FormData(event.currentTarget)
+        const email = formData.get('email')
+        const password = formData.get('password')
+
+        
+    }
 }
