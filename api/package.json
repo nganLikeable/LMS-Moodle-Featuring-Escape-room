@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.16.3",
+    "@types/next-server": "^8.1.2",
     "next": "15.5.4",
     "pg-hstore": "^2.3.4",
     "react": "19.1.0",

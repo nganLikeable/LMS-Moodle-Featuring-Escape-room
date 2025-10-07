@@ -16,12 +16,13 @@ datasource db {
 
 model User {
   id Int @id @default(autoincrement())
-  name String
+  username String @unique
   password String
   createdAt DateTime @default(now())
   
   // relationship
   games Game[]
+  progress Progress[]
 }
 
 model Game {
@@ -30,4 +31,14 @@ model Game {
   userId Int 
   completedChapters Int
   timeCompleted DateTime @default(now())
+}
+
+model Progress {
+  id Int @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  currentLevel Int
+  score Int 
+  lastUpdated DateTime @updatedAt
+  completed Boolean @default(false)
 }
