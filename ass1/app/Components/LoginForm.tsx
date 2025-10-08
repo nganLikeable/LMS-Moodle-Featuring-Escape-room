@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
-
+import { setCookie } from "../../../lib/cookies";
 export default function LoginForm() {
   const router = useRouter();
 
@@ -29,7 +29,8 @@ export default function LoginForm() {
       });
 
       if (response.ok) {
-        const user = await response.json(); // product js obj
+        const { user, token } = await response.json(); // product js obj
+        setCookie("authToken", token, { maxAge: 3600 });
         console.log("Login successful: ", user);
         router.push("./escape-room");
       } else {

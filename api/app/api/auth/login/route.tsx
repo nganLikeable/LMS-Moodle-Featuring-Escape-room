@@ -1,7 +1,7 @@
 import { signToken } from "@/lib/auth";
 import bcrypt from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "../../../lib/prisma";
+import { prisma } from "../../../../lib/prisma";
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE, OPTIONS",
