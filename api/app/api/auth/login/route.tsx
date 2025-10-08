@@ -1,3 +1,4 @@
+import { signToken } from "@/lib/auth";
 import bcrypt from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "../../../lib/prisma";
@@ -46,12 +47,18 @@ export async function POST(request: NextRequest) {
       });
     }
 
+    // create real jwt
+    const token = signToken({ id: user.id, username: user.username });
+
     // if successful login, return user's data w/o the hashed pw
     const { passwordHash, ...userWithoutPassword } = user;
-    return NextResponse.json(userWithoutPassword, {
-      status: 200,
-      headers: corsHeaders,
-    });
+    return NextResponse.json(
+      { user: userWithoutPassword, token: token },
+      {
+        status: 200,
+        headers: corsHeaders,
+      }
+    );
   } catch (error) {
     console.error("Login error", error);
     return new NextResponse("Internal Server Error", {
