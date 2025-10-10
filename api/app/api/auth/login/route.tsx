@@ -1,12 +1,27 @@
-import { signToken } from "@/lib/auth";
 import bcrypt from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
+import { signToken } from "../../../../lib/auth";
 import { prisma } from "../../../../lib/prisma";
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
+// helper function to return a json response
+function json<T>(
+  data: T,
+  init?: { status?: number; headers?: Record<string, string> }
+) {
+  return NextResponse.json(data, {
+    status: init?.status ?? 200,
+    headers: { ...corsHeaders, ...(init?.headers || {}) },
+  });
+}
+
+// helper function for error objs
+function jsonError(message: string, status = 400) {
+  return json({ error: message }, { status });
+}
 
 export async function OPTIONS() {
   return new NextResponse(null, {
@@ -21,30 +36,21 @@ export async function POST(request: NextRequest) {
     const { username, password } = await request.json();
 
     if (!username || !password) {
-      return new NextResponse("Username and password required", {
-        status: 400,
-        headers: corsHeaders,
-      });
+      return jsonError("Username and password required", 400);
     }
 
     // get data from db
     const user = await prisma.user.findUnique({ where: { username } });
 
     if (!user) {
-      return new NextResponse(
-        "Invalid username or password",
-        { status: 401, headers: corsHeaders } // 401 unauthorized
-      );
+      return jsonError("Invalid username or password", 401);
     }
 
     // compare password as hashes
     const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
 
     if (!isPasswordValid) {
-      return new NextResponse("Invalid username or password.", {
-        status: 401,
-        headers: corsHeaders,
-      });
+      return jsonError("Invalid username or password", 401);
     }
 
     // create real jwt
@@ -61,9 +67,6 @@ export async function POST(request: NextRequest) {
     );
   } catch (error) {
     console.error("Login error", error);
-    return new NextResponse("Internal Server Error", {
-      status: 500,
-      headers: corsHeaders,
-    });
+    return jsonError("Internal Server Error", 500);
   }
 }

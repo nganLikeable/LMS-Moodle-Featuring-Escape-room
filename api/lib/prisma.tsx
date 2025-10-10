@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@/app/generated/prisma";
 // Use globalThis to handle hot-reloading in development
 declare global {
   var prisma: PrismaClient | undefined;

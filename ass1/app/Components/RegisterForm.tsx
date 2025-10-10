@@ -2,7 +2,8 @@
 import { setCookie } from "@/lib/cookies";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
-export default function LoginForm() {
+
+export default function RegisterForm() {
   const router = useRouter();
 
   // state to hold error messages from api
@@ -20,7 +21,7 @@ export default function LoginForm() {
 
     try {
       // send POST request to login API endpoint
-      const response = await fetch("http://localhost:3001/api/auth/login", {
+      const response = await fetch("http://localhost:3001/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -31,11 +32,11 @@ export default function LoginForm() {
       if (response.ok) {
         const { user, token } = await response.json(); // product js obj
         setCookie("authToken", token, { maxAge: 3600 });
-        console.log("Login successful: ", user);
-        router.push("./escape-room");
+        console.log("Registration successful: ", user);
+        router.push("./login");
       } else {
         const errorData = await response.json();
-        setError(errorData.message || "Login failed. Please try again");
+        setError(errorData.message || "Registration failed. Please try again");
       }
     } catch (e) {
       setError("Unexpected error occurred. Please try again.");
@@ -58,7 +59,7 @@ export default function LoginForm() {
         required
       ></input>
       {error && <p style={{ color: "red" }}>{error}</p>}
-      <button type="submit">Login</button>
+      <button type="submit">Register</button>
     </form>
   );
 }

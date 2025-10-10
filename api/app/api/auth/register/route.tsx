@@ -1,12 +1,28 @@
 import bcrypt from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "../../../lib/prisma";
+import { prisma } from "../../../../lib/prisma";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
+
+// helper function to return a json response
+function json<T>(
+  data: T,
+  init?: { status?: number; headers?: Record<string, string> }
+) {
+  return NextResponse.json(data, {
+    status: init?.status ?? 200,
+    headers: { ...corsHeaders, ...(init?.headers || {}) },
+  });
+}
+
+// helper function for error objs
+function jsonError(message: string, status = 400) {
+  return json({ error: message }, { status });
+}
 
 export async function OPTIONS() {
   return new NextResponse(null, {
@@ -18,33 +34,35 @@ export async function OPTIONS() {
 // GET: get user(s) by id
 export async function GET(request: NextRequest) {
   try {
-    const id = request.nextUrl.searchParams.get("id");
+    const idParam = request.nextUrl.searchParams.get("id");
 
-    if (id) {
+    if (idParam) {
+      // convert string.idParram to integer for prisma query
+      const id = parseInt(idParam, 10);
       const user = await prisma.user.findUnique({
         where: { id },
       });
 
-      // remove passwordHash from the response - avoid exposure
-      const { passwordHash: _, userWithoutPassword } = user;
-
+      // 1. Check if user exists FIRST
       if (!user) {
-        return new NextResponse("User not found", {
-          status: 404,
-          headers: corsHeaders,
-        });
+        return jsonError("User not found", 404);
       }
-      return NextResponse.json(user, { headers: corsHeaders });
+
+      // 2. Remove password hash before sending response
+      const { passwordHash, ...userWithoutPassword } = user;
+      return json(userWithoutPassword);
     }
 
     const users = await prisma.user.findMany();
-    return NextResponse.json(users, { headers: corsHeaders });
+    // 3. Remove password hash from ALL users in the list
+    const usersWithoutPasswords = users.map((user) => {
+      const { passwordHash, ...userWithoutPassword } = user;
+      return json(userWithoutPassword);
+    });
+    return NextResponse.json(usersWithoutPasswords, { headers: corsHeaders });
   } catch (error) {
     console.error(error);
-    return new NextResponse("Server error", {
-      status: 500,
-      headers: corsHeaders,
-    });
+    return jsonError("Server error", 500);
   }
 }
 
@@ -54,19 +72,13 @@ export async function POST(request: NextRequest) {
     const { username, password } = await request.json();
 
     if (!username || !password) {
-      return new NextResponse("Username and password required", {
-        status: 400,
-        headers: corsHeaders,
-      });
+      return jsonError("Username and password required", 400);
     }
 
     // check if username exists
     const existingUser = await prisma.user.findUnique({ where: { username } });
     if (existingUser) {
-      return new NextResponse("This username is taken.", {
-        status: 409,
-        headers: corsHeaders,
-      });
+      return jsonError("This username is taken.", 409);
     }
 
     // hash pw
@@ -79,29 +91,25 @@ export async function POST(request: NextRequest) {
 
     // remove pw hash from user obj before sending it back - for security
     const { passwordHash: _, ...userWithoutPassword } = newUser;
-    return NextResponse.json(userWithoutPassword, {
-      status: 201,
-      headers: corsHeaders,
-    });
-  } catch (error) {
-    console.error(error);
-    return new NextResponse("Invalid request body", {
-      status: 400,
-      headers: corsHeaders,
-    });
+    return json(userWithoutPassword, { status: 201 });
+  } catch (error: any) {
+    console.error("🔥 POST /api/auth/register error:", error);
+    // Return the error message and a 500 status
+    return NextResponse.json(
+      { error: error.message || "Unknown server error" },
+      { status: 500, headers: corsHeaders }
+    );
   }
 }
 
 // PATCH: update user by id
 export async function PATCH(request: NextRequest) {
   try {
-    const id = request.nextUrl.searchParams.get("id");
-    if (!id) {
-      return new NextResponse("Missing id", {
-        status: 400,
-        headers: corsHeaders,
-      });
+    const idParam = request.nextUrl.searchParams.get("id");
+    if (!idParam) {
+      return jsonError("Missing id", 400);
     }
+    const id = parseInt(idParam, 10);
 
     const { username, password } = await request.json();
 
@@ -117,10 +125,7 @@ export async function PATCH(request: NextRequest) {
         },
       });
       if (existingUser) {
-        return new NextResponse("This username is already taken.", {
-          status: 409,
-          headers: corsHeaders,
-        });
+        return jsonError("This username is already taken.", 409);
       }
       dataToUpdate.username = username;
     }
@@ -133,10 +138,7 @@ export async function PATCH(request: NextRequest) {
 
     // nothing to update
     if (Object.keys(dataToUpdate).length === 0) {
-      return new NextResponse("No fields to update", {
-        status: 400,
-        headers: corsHeaders,
-      });
+      return jsonError("No fields to update", 400);
     }
 
     const updatedUser = await prisma.user.update({
@@ -152,30 +154,22 @@ export async function PATCH(request: NextRequest) {
     });
   } catch (error) {
     console.error(error);
-    return new NextResponse("Invalid request", {
-      status: 400,
-      headers: corsHeaders,
-    });
+    return jsonError("Invalid request", 400);
   }
 }
 
 // DELETE: delete user by id
-export async function Delete(request: NextRequest) {
+export async function DELETE(request: NextRequest) {
   try {
-    const id = request.nextUrl.searchParams.get("id");
-    if (!id) {
-      return new NextResponse("Missing id", {
-        status: 400,
-        headers: corsHeaders,
-      });
+    const idParam = request.nextUrl.searchParams.get("id");
+    if (!idParam) {
+      return jsonError("Missing id", 400);
     }
+    const id = parseInt(idParam, 10);
     await prisma.user.delete({ where: { id } });
-    return new NextResponse(null, { status: 204, headers: corsHeaders });
+    return json({ success: true }, { status: 204 });
   } catch (error) {
     console.error(error);
-    return new NextResponse("Invalid request", {
-      status: 400,
-      headers: corsHeaders,
-    });
+    return jsonError("Invalid request", 400);
   }
 }
