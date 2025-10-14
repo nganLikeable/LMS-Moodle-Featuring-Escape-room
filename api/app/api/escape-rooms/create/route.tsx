@@ -78,3 +78,26 @@ export async function POST(request: NextRequest) {
     return jsonError(e.message, 500);
   }
 }
+
+// get room by Id
+export async function GET(request: NextRequest) {
+  try {
+    const idParam = request.nextUrl.searchParams.get("roomId");
+
+    if (idParam) {
+      const roomId = parseInt(idParam, 10);
+      const room = await prisma.room.findUnique({
+        where: { roomId },
+        include: { stages: true },
+      });
+
+      if (!room) {
+        return jsonError("Room not found", 404);
+      }
+      return json(room, { status: 200 });
+    }
+  } catch (e: any) {
+    console.log(e);
+    return jsonError("Server error", 500);
+  }
+}
