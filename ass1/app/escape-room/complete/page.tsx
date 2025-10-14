@@ -1,4 +1,5 @@
 "use client";
+import { resetGame } from "@/app/store/gameSlice";
 import { resetTimer } from "@/app/store/timerSlice";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +12,9 @@ export default function Complete() {
     <div>
       <button
         onClick={() => {
-          router.push("/escape-room"), dispatch(resetTimer());
+          router.push("/escape-room"),
+            dispatch(resetTimer()),
+            dispatch(resetGame());
         }}
       >
         Restart the game
