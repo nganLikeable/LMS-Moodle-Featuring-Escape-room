@@ -20,7 +20,7 @@ export default function LoginForm() {
 
     try {
       // send POST request to login API endpoint
-      const response = await fetch("http://localhost:3001/api/auth/login", {
+      const response = await fetch("http://localhost:3002/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +32,7 @@ export default function LoginForm() {
         const { user, token } = await response.json(); // product js obj
         setCookie("authToken", token, { maxAge: 3600 });
         console.log("Login successful: ", user);
-        router.push("./escape-room");
+        router.push("./");
       } else {
         const errorData = await response.json();
         setError(errorData.message || "Login failed. Please try again");

@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
     const { passwordHash: _, ...userWithoutPassword } = newUser;
     return json(userWithoutPassword, { status: 201 });
   } catch (error: any) {
-    console.error("🔥 POST /api/auth/register error:", error);
+    console.error("POST /api/auth/register error:", error);
     // Return the error message and a 500 status
     return NextResponse.json(
       { error: error.message || "Unknown server error" },
