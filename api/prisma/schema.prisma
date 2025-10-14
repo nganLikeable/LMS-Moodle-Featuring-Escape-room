@@ -22,6 +22,7 @@ model User {
   // relationship
   games Game[]
   progress GameSession[]
+  rooms Room[]
 }
 
 model Game {
@@ -46,4 +47,30 @@ enum GameStatus {
   IN_PROGRESS
   COMPLETED
   FAILED
+}
+
+model Room {
+  roomId Int @id @default(autoincrement())
+  creator User @relation(fields: [creatorId], references: [id])
+  creatorId Int
+
+  title String 
+  description String 
+  timerDuration Int 
+  backgroundImg String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  
+  stages Stage[]
+} 
+
+model Stage {
+  stageId Int @id @default(autoincrement())
+  room Room @relation(fields: [roomId], references: [roomId])
+  roomId Int
+  stageNo Int // order of stage in the room 
+  question String 
+  answer String 
+  inputFile String? // optional path 
 }

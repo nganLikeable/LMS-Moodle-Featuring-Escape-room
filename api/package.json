@@ -9,7 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@prisma/client": "^6.17.0",
+    "@prisma/client": "^6.17.1",
     "@types/next-server": "^8.1.2",
     "bcryptjs": "^3.0.2",
     "iron-session": "^8.0.4",
