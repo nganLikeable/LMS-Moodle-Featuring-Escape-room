@@ -7,35 +7,47 @@ import TimerModal from "@/app/Components/TimerModal";
 import { openTimerModal } from "@/app/store/timerSlice";
 import { typeOnScreen } from "@/app/utils/typeOnScreen";
 import { useParams, useRouter } from "next/navigation";
+import { useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import Typewriter from "typewriter-effect";
 import styles from "./page.module.css";
+
 function Intro() {
   const intro = [
-    "Prologue",
     "Ngan, our noob programmer, vanished 48 hours ago. Her final communication was a cryptic message pointing to her last project—a top-secret, five-stage code sequence.",
     "Your mission is to infiltrate her digital environment. You must debug, decode, and compile five fragmented pieces of code to trace her steps and discover her fate.",
     "The clock is running. Every second counts. Do not fail.",
   ];
   const dispatch = useDispatch();
   const router = useRouter(); // navigate
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
+
+  const handleTypingComplete = useCallback(() => {
+    setIsTypingComplete(true);
+  }, []);
 
   return (
     <div className={styles.introContainer}>
       <div className={styles.note}>
         <h1>The Case of the Missing Programmer</h1>
         <Typewriter
-          onInit={(typewriter) => typeOnScreen(typewriter, intro)}
+          onInit={(typewriter) =>
+            typeOnScreen(typewriter, intro, handleTypingComplete)
+          }
           options={{ delay: 10 }}
         />
-        <button
-          onClick={() => {
-            dispatch(openTimerModal());
-          }}
-        >
-          Ready
-        </button>
-        <TimerModal />
+        {isTypingComplete && (
+          <div>
+            <button
+              onClick={() => {
+                dispatch(openTimerModal());
+              }}
+            >
+              Ready
+            </button>
+            <TimerModal />
+          </div>
+        )}
       </div>
     </div>
   );

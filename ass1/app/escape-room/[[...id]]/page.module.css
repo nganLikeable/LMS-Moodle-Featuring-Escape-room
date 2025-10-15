@@ -4,9 +4,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white; /* text color */
+  color: white;
   z-index: 0;
   background-color: #1e1e1e;
+  padding: 20px; /* Add padding for mobile safety */
 }
 
 .introContainer::before {
@@ -25,7 +26,45 @@
   z-index: -1;
 }
 
+.note {
+  position: relative;
+  padding: 40px;
+  border-radius: 10px;
+  max-width: 600px;
+}
+
 .note h1 {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 3rem;
   color: rgb(255, 255, 91);
+  font-weight: bold;
+  white-space: nowrap;
+  padding: 10px 20px;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(255, 255, 91, 0.2);
+}
+
+.note .Typewriter {
+  margin-top: 50px;
+}
+
+.note button {
+  margin-top: 20px;
+  padding: 0.5rem;
+  background-color: rgb(255, 255, 91);
+  color: #1e1e1e;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.note button:hover {
+  background-color: rgb(255, 192, 31);
 }
