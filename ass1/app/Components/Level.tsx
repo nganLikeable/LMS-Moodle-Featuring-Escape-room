@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { useCallback, useState } from "react";
+import React, { FormEvent, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { solveLevel } from "../store/gameSlice";
 import { RootState } from "../store/store";
@@ -15,6 +15,7 @@ interface LevelProps {
 export default function Level({ config }: LevelProps) {
   const dispatch = useDispatch();
   const router = useRouter();
+  const [error, setError] = useState("");
 
   // local component state
   const [puzzleText, setPuzzleText] = useState("Loading puzzle data...");
@@ -52,16 +53,28 @@ export default function Level({ config }: LevelProps) {
     }
   }, [router, config.id, totalLevels]);
 
+  async function handleSubmit1(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    setError("");
+
+    const formData = new FormData(event.currentTarget);
+  }
+
   return (
     <div className={styles.container}>
-      <TimerDisplay />
+      <div className={styles.timer}>
+        <TimerDisplay />
+      </div>
       <div className={styles.narrative}>
         <h1>Chapter {config.id}</h1>
         <p>{config.narrative}</p>
-        <p>Puzzle resource: </p>
-        <a href={config.puzzleFile} target="_blank" rel="noopener noreferrer">
-          puzzle input
-        </a>
+        <p>
+          Puzzle resource:
+          <a href={config.puzzleFile} target="_blank" rel="noopener noreferrer">
+            puzzle input
+          </a>{" "}
+        </p>
       </div>
       {isSolved ? (
         // render next page button if solved
