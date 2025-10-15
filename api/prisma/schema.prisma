@@ -37,7 +37,6 @@ model GameSession {
   user User @relation(fields: [userId], references: [id])
   userId Int
   currentLevel Int
-  score Int 
   lastUpdated DateTime @updatedAt
   completed Boolean @default(false)
 }
