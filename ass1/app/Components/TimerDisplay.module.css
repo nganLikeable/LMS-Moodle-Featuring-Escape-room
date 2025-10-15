@@ -1,0 +1,10 @@
+.container {
+  font-weight: bold;
+  color: #ff4081;
+  background-color: #3d3b3b;
+  padding: 0rem 0.5rem;
+  border-radius: 8px;
+  text-align: center;
+  width: 100px;
+  box-shadow: 0 0 10px rgba(255, 0, 100, 0.2);
+}
