@@ -1,0 +1,31 @@
+.introContainer {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white; /* text color */
+  z-index: 0;
+  background-color: #1e1e1e;
+}
+
+.introContainer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* ref: https://images8.alphacoders.com/941/thumb-1920-941429.jpg */
+  background-image: url("/intro-room.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.note h1 {
+  font-size: 3rem;
+  color: rgb(255, 255, 91);
+}
