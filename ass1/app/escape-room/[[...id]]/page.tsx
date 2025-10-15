@@ -4,6 +4,7 @@ import { levelsConfig } from "@/app/Components/LevelsConfig";
 import TimerDisplay from "@/app/Components/TimerDisplay";
 import TimerEngine from "@/app/Components/TimerEngine";
 import TimerModal from "@/app/Components/TimerModal";
+import { openTimerModal } from "@/app/store/timerSlice";
 import { typeOnScreen } from "@/app/utils/typeOnScreen";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
@@ -23,6 +24,7 @@ function Intro() {
 
   const handleTypingComplete = useCallback(() => {
     setIsTypingComplete(true);
+    dispatch(openTimerModal());
   }, []);
 
   return (
