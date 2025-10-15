@@ -91,3 +91,8 @@
 .nextLevel button:hover {
   background-color: #004c5f;
 }
+
+.feedback {
+  font-size: 1rem;
+  color: #cc1919;
+}

@@ -31,6 +31,7 @@ export default function Level({ config }: LevelProps) {
   const totalLevels = levelsConfig.length;
 
   const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     if (isSolved) return;
 
     const trimmedInput = input.trim().toLowerCase();
@@ -39,6 +40,7 @@ export default function Level({ config }: LevelProps) {
       dispatch(solveLevel({ levelId: config.id, ans: trimmedInput }));
       setFeedback("Correct Answer!");
     } else {
+      setInput(""); // clear wrong ans
       setFeedback("Incorrect Answer!! Please try again....");
     }
   };
@@ -88,6 +90,8 @@ export default function Level({ config }: LevelProps) {
       ) : (
         // unsolved form
         <div className={styles.form}>
+          {feedback && <p className={styles.feedback}>{feedback}</p>}
+
           <form onSubmit={handleSubmit}>
             <input
               type="text"
@@ -99,7 +103,7 @@ export default function Level({ config }: LevelProps) {
             <button type="submit">Submit</button>
           </form>
         </div>
-      )}{" "}
+      )}
     </div>
   );
 }

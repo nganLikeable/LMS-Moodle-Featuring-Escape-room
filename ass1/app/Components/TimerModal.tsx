@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
+import { resetGame } from "../store/gameSlice";
 import {
   closeTimerModal,
   setCustomMinutes,
@@ -30,6 +31,7 @@ export default function TimerModal() {
         onClick={() => {
           dispatch(startTimer());
           dispatch(closeTimerModal());
+          dispatch(resetGame());
           router.push("./escape-room/1");
         }}
       >
