@@ -1,0 +1,9 @@
+let day = 5;
+let priority = true;
+let route = "GAMMA";
+
+if (day > 7 || !priority) {
+    route = "BETA";
+} else if (day <= 5 && !priority !== false) {
+    route = "ALPHA";
+}

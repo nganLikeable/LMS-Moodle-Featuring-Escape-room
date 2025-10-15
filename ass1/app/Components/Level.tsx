@@ -71,12 +71,18 @@ export default function Level({ config }: LevelProps) {
       <div className={styles.narrative}>
         <h1>Chapter {config.id}</h1>
         <p>{config.narrative}</p>
-        <p>
-          Puzzle resource:
-          <a href={config.puzzleFile} target="_blank" rel="noopener noreferrer">
-            puzzle input
-          </a>{" "}
-        </p>
+        {config.puzzleFile !== "" && (
+          <p>
+            Puzzle resource:
+            <a
+              href={config.puzzleFile}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              puzzle input
+            </a>
+          </p>
+        )}
       </div>
       {isSolved ? (
         // render next page button if solved
