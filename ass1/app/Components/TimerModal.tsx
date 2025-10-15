@@ -6,6 +6,8 @@ import {
   setCustomMinutes,
   startTimer,
 } from "../store/timerSlice";
+import styles from "./TimerModal.module.css";
+
 export default function TimerModal() {
   const dispatch = useDispatch();
   const { customMinutes, showModal } = useSelector((state: any) => state.timer);
@@ -14,14 +16,16 @@ export default function TimerModal() {
 
   if (!showModal) return null;
   return (
-    <div>
+    <div className={styles.container}>
       <h3>Set your timer</h3>
-      <input
-        type="number"
-        value={customMinutes}
-        onChange={(e) => dispatch(setCustomMinutes(Number(e.target.value)))}
-      ></input>
-      <span>minutes</span>
+      <div className={styles.inputRow}>
+        <input
+          type="number"
+          value={customMinutes}
+          onChange={(e) => dispatch(setCustomMinutes(Number(e.target.value)))}
+        ></input>
+        <span>minutes</span>
+      </div>
       <button
         onClick={() => {
           dispatch(startTimer());

@@ -1,0 +1,69 @@
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.container {
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+  padding: 0.5rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(255, 0, 100, 0.2);
+  width: 100%;
+  max-width: 400px;
+  margin: 2rem auto 0 auto;
+  text-align: center;
+  opacity: 0;
+  animation: fadeSlideUp 0.5s ease-out forwards;
+}
+
+.container h3 {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  color: #ff4081;
+}
+
+.inputRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.inputRow input {
+  width: 60px;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #272626;
+  color: #fff;
+  text-align: center;
+}
+
+.inputRow span {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+.container button {
+  padding: 0.6rem 1.2rem;
+  background-color: #ff4081;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.container button:hover {
+  background-color: #881038;
+}

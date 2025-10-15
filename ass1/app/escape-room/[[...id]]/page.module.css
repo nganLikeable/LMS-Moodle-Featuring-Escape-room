@@ -22,7 +22,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.5;
+  opacity: 0.3;
   z-index: -1;
 }
 
@@ -50,23 +50,4 @@
 
 .note .Typewriter {
   margin-top: 50px;
-}
-
-.note button {
-  display: block;
-  margin: 20px auto 0 auto;
-  margin-top: 20px;
-  padding: 0.5rem;
-  background-color: rgb(255, 255, 91);
-  color: #1e1e1e;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 1.1rem;
-  font-weight: bold;
-  transition: background-color 0.3s;
-}
-
-.note button:hover {
-  background-color: rgb(255, 192, 31);
 }
