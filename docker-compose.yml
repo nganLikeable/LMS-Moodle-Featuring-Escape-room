@@ -22,7 +22,7 @@ services:
       - NODE_ENV=development
       - DATABASE_URL=postgresql://user:password@postgres:5432/my_db
     volumes:
-      - ./ass1:/app:cached
+      - ./api:/app
       - /app/node_modules
   postgres:
     image: postgres:15
