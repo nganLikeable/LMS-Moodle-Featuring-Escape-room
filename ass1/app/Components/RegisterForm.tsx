@@ -19,9 +19,12 @@ export default function RegisterForm() {
     const username = formData.get("username");
     const password = formData.get("password");
 
+    console.log("🚀 Form submitted with:", { username, password });
+
     try {
       // send POST request to login API endpoint
-      const response = await fetch("http://localhost:3002/api/auth/register", {
+
+      const response = await fetch("http://localhost:4080/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,14 +32,20 @@ export default function RegisterForm() {
         body: JSON.stringify({ username, password }),
       });
 
+      console.log("📨 Response received:", {
+        status: response.status,
+        statusText: response.statusText,
+        ok: response.ok,
+      });
+
       if (response.ok) {
         const { user, token } = await response.json(); // product js obj
-        setCookie("authToken", token, { maxAge: 3600 });
+        setCookie("token", token, { maxAge: 3600 });
         console.log("Registration successful: ", user);
         router.push("./login");
       } else {
         const errorData = await response.json();
-        setError(errorData.message || "Registration failed. Please try again");
+        setError(errorData.error || "Registration failed. Please try again");
       }
     } catch (e) {
       setError("Unexpected error occurred. Please try again.");

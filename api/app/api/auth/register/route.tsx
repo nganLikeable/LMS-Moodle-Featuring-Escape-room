@@ -57,9 +57,9 @@ export async function GET(request: NextRequest) {
     // 3. Remove password hash from ALL users in the list
     const usersWithoutPasswords = users.map((user) => {
       const { passwordHash, ...userWithoutPassword } = user;
-      return json(userWithoutPassword);
+      return userWithoutPassword;
     });
-    return NextResponse.json(usersWithoutPasswords, { headers: corsHeaders });
+    return json(usersWithoutPasswords);
   } catch (error) {
     console.error(error);
     return jsonError("Server error", 500);

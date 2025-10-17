@@ -2,6 +2,7 @@
 import { setCookie } from "@/lib/cookies";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
+import styles from "./LoginForm.module.css";
 export default function LoginForm() {
   const router = useRouter();
 
@@ -20,7 +21,7 @@ export default function LoginForm() {
 
     try {
       // send POST request to login API endpoint
-      const response = await fetch("http://localhost:3002/api/auth/login", {
+      const response = await fetch("http://localhost:4080/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,12 +31,12 @@ export default function LoginForm() {
 
       if (response.ok) {
         const { user, token } = await response.json(); // product js obj
-        setCookie("authToken", token, { maxAge: 3600 });
+        setCookie("token", token, { maxAge: 3600 });
         console.log("Login successful: ", user);
         router.push("./");
       } else {
         const errorData = await response.json();
-        setError(errorData.message || "Login failed. Please try again");
+        setError(errorData.error || "Login failed. Please try again");
       }
     } catch (e) {
       setError("Unexpected error occurred. Please try again.");
@@ -44,21 +45,30 @@ export default function LoginForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="username"
-        placeholder="Username"
-        required
-      ></input>
-      <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        required
-      ></input>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <button type="submit">Login</button>
-    </form>
+    <div className={styles.container}>
+      <div className={styles.form}>
+        <form onSubmit={handleSubmit}>
+          <h2 className={styles.title}>Login</h2>
+          <div className={styles.input}>
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              required
+            ></input>
+          </div>
+          <div className={styles.input}>
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+            ></input>
+          </div>
+          {error && <p className={styles.error}>{error}</p>}
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </div>
   );
 }

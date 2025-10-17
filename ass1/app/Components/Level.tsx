@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { useCallback, useState } from "react";
+import React, { FormEvent, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { solveLevel } from "../store/gameSlice";
 import { RootState } from "../store/store";
@@ -15,6 +15,7 @@ interface LevelProps {
 export default function Level({ config }: LevelProps) {
   const dispatch = useDispatch();
   const router = useRouter();
+  const [error, setError] = useState("");
 
   // local component state
   const [puzzleText, setPuzzleText] = useState("Loading puzzle data...");
@@ -30,6 +31,7 @@ export default function Level({ config }: LevelProps) {
   const totalLevels = levelsConfig.length;
 
   const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     if (isSolved) return;
 
     const trimmedInput = input.trim().toLowerCase();
@@ -38,6 +40,7 @@ export default function Level({ config }: LevelProps) {
       dispatch(solveLevel({ levelId: config.id, ans: trimmedInput }));
       setFeedback("Correct Answer!");
     } else {
+      setInput(""); // clear wrong ans
       setFeedback("Incorrect Answer!! Please try again....");
     }
   };
@@ -52,16 +55,34 @@ export default function Level({ config }: LevelProps) {
     }
   }, [router, config.id, totalLevels]);
 
+  async function handleSubmit1(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    setError("");
+
+    const formData = new FormData(event.currentTarget);
+  }
+
   return (
     <div className={styles.container}>
-      <TimerDisplay />
+      <div className={styles.timer}>
+        <TimerDisplay />
+      </div>
       <div className={styles.narrative}>
         <h1>Chapter {config.id}</h1>
         <p>{config.narrative}</p>
-        <p>Puzzle resource: </p>
-        <a href={config.puzzleFile} target="_blank" rel="noopener noreferrer">
-          puzzle input
-        </a>
+        {config.puzzleFile !== "" && (
+          <p>
+            Puzzle resource:
+            <a
+              href={config.puzzleFile}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              puzzle input
+            </a>
+          </p>
+        )}
       </div>
       {isSolved ? (
         // render next page button if solved
@@ -75,6 +96,8 @@ export default function Level({ config }: LevelProps) {
       ) : (
         // unsolved form
         <div className={styles.form}>
+          {feedback && <p className={styles.feedback}>{feedback}</p>}
+
           <form onSubmit={handleSubmit}>
             <input
               type="text"
@@ -86,7 +109,7 @@ export default function Level({ config }: LevelProps) {
             <button type="submit">Submit</button>
           </form>
         </div>
-      )}{" "}
+      )}
     </div>
   );
 }

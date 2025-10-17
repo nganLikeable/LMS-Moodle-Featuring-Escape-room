@@ -1,6 +1,7 @@
 "use client";
 import { useTimer } from "@/hooks/useTimer";
 import { useSelector } from "react-redux";
+import styles from "./TimerDisplay.module.css";
 export default function TimerDisplay() {
   const { timeLeft, showTimer } = useSelector((state: any) => state.timer);
 
@@ -12,7 +13,7 @@ export default function TimerDisplay() {
   //   const seconds = String(timeLeft % 60).padStart(2, "0");
 
   return (
-    <div>
+    <div className={styles.container}>
       {minutes}:{seconds}
     </div>
   );

@@ -1,11 +1,14 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
+import { resetGame } from "../store/gameSlice";
 import {
   closeTimerModal,
   setCustomMinutes,
   startTimer,
 } from "../store/timerSlice";
+import styles from "./TimerModal.module.css";
+
 export default function TimerModal() {
   const dispatch = useDispatch();
   const { customMinutes, showModal } = useSelector((state: any) => state.timer);
@@ -14,18 +17,21 @@ export default function TimerModal() {
 
   if (!showModal) return null;
   return (
-    <div>
+    <div className={styles.container}>
       <h3>Set your timer</h3>
-      <input
-        type="number"
-        value={customMinutes}
-        onChange={(e) => dispatch(setCustomMinutes(Number(e.target.value)))}
-      ></input>
-      <span>minutes</span>
+      <div className={styles.inputRow}>
+        <input
+          type="number"
+          value={customMinutes}
+          onChange={(e) => dispatch(setCustomMinutes(Number(e.target.value)))}
+        ></input>
+        <span>minutes</span>
+      </div>
       <button
         onClick={() => {
           dispatch(startTimer());
           dispatch(closeTimerModal());
+          dispatch(resetGame());
           router.push("./escape-room/1");
         }}
       >

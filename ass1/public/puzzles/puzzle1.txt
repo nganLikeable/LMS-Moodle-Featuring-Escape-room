@@ -1,0 +1,4 @@
+1. Key Part 1 (Boolean): 0x01
+2. Key Part 2 (Integer): 00100101 (Binary)
+3. Part 3 (Character): 0x48 (Hexadecimal)
+4. Part 4 (Float): 3.0 / 3.0
