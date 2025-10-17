@@ -21,7 +21,7 @@ export default function LoginForm() {
 
     try {
       // send POST request to login API endpoint
-      const response = await fetch("http://localhost:3001/api/auth/login", {
+      const response = await fetch("http://localhost:4080/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -31,12 +31,12 @@ export default function LoginForm() {
 
       if (response.ok) {
         const { user, token } = await response.json(); // product js obj
-        setCookie("authToken", token, { maxAge: 3600 });
+        setCookie("token", token, { maxAge: 3600 });
         console.log("Login successful: ", user);
         router.push("./");
       } else {
         const errorData = await response.json();
-        setError(errorData.message || "Login failed. Please try again");
+        setError(errorData.error || "Login failed. Please try again");
       }
     } catch (e) {
       setError("Unexpected error occurred. Please try again.");
