@@ -21,26 +21,22 @@ model User {
   
   // relationship
   games Game[]
-  progress GameSession[]
 }
 
 model Game {
-  gameId Int @id @default(autoincrement())
+  id Int @id @default(autoincrement())
+
   user User @relation(fields: [userId], references: [id])
   userId Int 
-  completedChapters Int
-  timeCompleted DateTime @default(now())
-}
 
-model GameSession {
-  id Int @id @default(autoincrement())
-  user User @relation(fields: [userId], references: [id])
-  userId Int
-  currentLevel Int
+  status GameStatus @default(IN_PROGRESS)
+  currentLevel Int @default(1)
+
+  startTime DateTime @default(now())
+  finishTime DateTime? 
   lastUpdated DateTime @updatedAt
-  completed Boolean @default(false)
-}
 
+}
 enum GameStatus {
   IN_PROGRESS
   COMPLETED
