@@ -21,7 +21,7 @@ export default function LoginForm() {
 
     try {
       // send POST request to login API endpoint
-      const response = await fetch("http://localhost:4080/api/auth/login", {
+      const response = await fetch("http://localhost:3001/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,6 +32,7 @@ export default function LoginForm() {
       if (response.ok) {
         const { user, token } = await response.json(); // product js obj
         setCookie("token", token, { maxAge: 3600 });
+        setCookie("userId", user.id, { maxAge: 3600 });
         console.log("Login successful: ", user);
         router.push("./");
       } else {

@@ -38,10 +38,16 @@ export async function POST(request: NextRequest) {
       return jsonError("User Id required to start a session", 400);
     }
 
+    // convert id to int
+    const parsedUserId = parseInt(userId);
+    if (isNaN(parsedUserId)) {
+      return jsonError("Invalid userId format", 400);
+    }
+
     // const check if the user has an incomplete session
     const activeGame = await prisma.game.findFirst({
       where: {
-        userId: userId,
+        userId: parsedUserId,
         status: GameStatus.IN_PROGRESS,
       },
     });
@@ -53,7 +59,7 @@ export async function POST(request: NextRequest) {
 
     const newGame = await prisma.game.create({
       data: {
-        userId: userId,
+        userId: parsedUserId,
         currentLevel: 1,
         status: GameStatus.IN_PROGRESS,
       },

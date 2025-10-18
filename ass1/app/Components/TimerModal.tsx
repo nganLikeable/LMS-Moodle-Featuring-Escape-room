@@ -1,9 +1,12 @@
 "use client";
+import { getCookie } from "@/lib/cookies";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetGame } from "../store/gameSlice";
 import {
   closeTimerModal,
+  resetTimer,
   setCustomMinutes,
   startTimer,
 } from "../store/timerSlice";
@@ -14,6 +17,45 @@ export default function TimerModal() {
   const { customMinutes, showModal } = useSelector((state: any) => state.timer);
   console.log({ showModal });
   const router = useRouter();
+  const [error, setError] = useState("");
+
+  async function handleStart(event: React.MouseEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    setError("");
+    console.log("button clicked");
+
+    const userId = getCookie("userId");
+    console.log("userId from cookie:", userId);
+
+    try {
+      const response = await fetch("http://localhost:3001/api/session/start", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId }),
+      });
+      console.log("Response received:", {
+        status: response.status,
+        statusText: response.statusText,
+        ok: response.ok,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Session started", data);
+      } else {
+        const errorData = await response.json();
+        setError(
+          errorData.error || "Session failed to start. Please try again"
+        );
+        console.log(error);
+      }
+    } catch (e: any) {
+      setError("Unexpected error occurred. Please try again.");
+      console.error(e);
+    }
+  }
 
   if (!showModal) return null;
   return (
@@ -28,7 +70,9 @@ export default function TimerModal() {
         <span>minutes</span>
       </div>
       <button
-        onClick={() => {
+        onClick={(e) => {
+          handleStart(e);
+          dispatch(resetTimer());
           dispatch(startTimer());
           dispatch(closeTimerModal());
           dispatch(resetGame());

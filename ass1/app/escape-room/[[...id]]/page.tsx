@@ -13,12 +13,12 @@ import Typewriter from "typewriter-effect";
 import styles from "./page.module.css";
 
 function Intro() {
-  const intro = [
-    "Ngan, our noob programmer, vanished 48 hours ago. Her final communication was a cryptic message pointing to her last project—a top-secret, five-stage code sequence.",
-    "Your mission is to infiltrate her digital environment. You must debug, decode, and compile five fragmented pieces of code to trace her steps and discover her fate.",
-    "The clock is running. Every second counts. Do not fail.",
-  ];
-  // const intro = ["placeholder"];
+  // const intro = [
+  //   "Ngan, our noob programmer, vanished 48 hours ago. Her final communication was a cryptic message pointing to her last project—a top-secret, five-stage code sequence.",
+  //   "Your mission is to infiltrate her digital environment. You must debug, decode, and compile five fragmented pieces of code to trace her steps and discover her fate.",
+  //   "The clock is running. Every second counts. Do not fail.",
+  // ];
+  const intro = ["placeholder"];
   const dispatch = useDispatch();
   const router = useRouter(); // navigate
   const [isTypingComplete, setIsTypingComplete] = useState(false);

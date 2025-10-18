@@ -5,7 +5,7 @@ import styles from "./TimerDisplay.module.css";
 export default function TimerDisplay() {
   const { timeLeft, showTimer } = useSelector((state: any) => state.timer);
 
-  console.log({ showTimer });
+  // console.log({ showTimer });
   if (!showTimer) return null;
   const { minutes, seconds } = useTimer();
 

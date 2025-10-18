@@ -49,3 +49,12 @@ export const clearCookie = (name: string) => {
   // Setting max-age to 0 will immediately expire the cookie
   document.cookie = `${name}=; path=/; max-age=0;`;
 };
+
+export const getCookie = (name: string): string | undefined => {
+  const cookies = document.cookie.split(";").map((c) => c.trim());
+  for (let cookie of cookies) {
+    const [key, val] = cookie.split("=");
+    if (key === name) return val;
+  }
+  return undefined;
+};

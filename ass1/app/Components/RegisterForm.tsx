@@ -19,12 +19,10 @@ export default function RegisterForm() {
     const username = formData.get("username");
     const password = formData.get("password");
 
-    console.log("🚀 Form submitted with:", { username, password });
-
     try {
       // send POST request to login API endpoint
 
-      const response = await fetch("http://localhost:4080/api/auth/register", {
+      const response = await fetch("http://localhost:3001/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +30,7 @@ export default function RegisterForm() {
         body: JSON.stringify({ username, password }),
       });
 
-      console.log("📨 Response received:", {
+      console.log("Response received:", {
         status: response.status,
         statusText: response.statusText,
         ok: response.ok,
