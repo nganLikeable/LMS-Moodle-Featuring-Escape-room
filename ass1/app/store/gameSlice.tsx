@@ -9,6 +9,7 @@ export interface GameLevel {
 
 // main game state - all levels
 export interface GameState {
+  gameId: number | null;
   currentLvl: number;
   totalLvl: number;
   levels: { [key: number]: GameLevel }; // tracks individual level's status
@@ -16,6 +17,7 @@ export interface GameState {
 
 // define initial value for slice state
 const initialState: GameState = {
+  gameId: null,
   currentLvl: 1,
   totalLvl: 5,
   levels: {
@@ -54,9 +56,12 @@ const gameSlice = createSlice({
     resetGame: (state) => {
       return initialState; // reset game progression
     },
+    setGameId: (state, action: PayloadAction<number>) => {
+      state.gameId = action.payload;
+    },
   },
 });
 // export action creators functions for components
-export const { solveLevel, resetGame } = gameSlice.actions;
+export const { solveLevel, resetGame, setGameId } = gameSlice.actions;
 // export reducers for redux config
 export default gameSlice.reducer;

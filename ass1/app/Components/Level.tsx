@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { FormEvent, useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { solveLevel } from "../store/gameSlice";
 import { RootState } from "../store/store";
@@ -30,8 +30,13 @@ export default function Level({ config }: LevelProps) {
   // get total lvls for routing checks
   const totalLevels = levelsConfig.length;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // get game Id
+  const gameId = useSelector((state: RootState) => state.game.gameId);
+
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    setError("");
     if (isSolved) return;
 
     const trimmedInput = input.trim().toLowerCase();
@@ -39,11 +44,44 @@ export default function Level({ config }: LevelProps) {
     if (trimmedInput === config.ans.toLowerCase()) {
       dispatch(solveLevel({ levelId: config.id, ans: trimmedInput }));
       setFeedback("Correct Answer!");
+
+      try {
+        // PATCH to update level
+        const response = await fetch(
+          "http://localhost:3001/api/session/update",
+          {
+            method: "PATCH",
+
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ gameId, currentLevel: config.id }),
+          }
+        );
+        console.log("Response received:", {
+          status: response.status,
+          statusText: response.statusText,
+          ok: response.ok,
+        });
+        if (response.ok) {
+          const data = await response.json();
+          console.log("Level updated", data);
+        } else {
+          const errorData = await response.json();
+          setError(
+            errorData.error || "Level failed to update. Please try again."
+          );
+          console.log(error);
+        }
+      } catch (e: any) {
+        setError("Unexpected error occurred. Please try again.");
+        console.error(e);
+      }
     } else {
       setInput(""); // clear wrong ans
       setFeedback("Incorrect Answer!! Please try again....");
     }
-  };
+  }
 
   // routing logic
   const handleAdvance = useCallback(() => {
@@ -54,14 +92,6 @@ export default function Level({ config }: LevelProps) {
       router.push("/escape-room/complete");
     }
   }, [router, config.id, totalLevels]);
-
-  async function handleSubmit1(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    setError("");
-
-    const formData = new FormData(event.currentTarget);
-  }
 
   return (
     <div className={styles.container}>

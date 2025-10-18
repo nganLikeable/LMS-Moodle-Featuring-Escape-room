@@ -3,7 +3,7 @@ import { getCookie } from "@/lib/cookies";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { resetGame } from "../store/gameSlice";
+import { setGameId } from "../store/gameSlice";
 import {
   closeTimerModal,
   resetTimer,
@@ -44,12 +44,14 @@ export default function TimerModal() {
       if (response.ok) {
         const data = await response.json();
         console.log("Session started", data);
+        return data.game;
       } else {
         const errorData = await response.json();
         setError(
           errorData.error || "Session failed to start. Please try again"
         );
         console.log(error);
+        return null;
       }
     } catch (e: any) {
       setError("Unexpected error occurred. Please try again.");
@@ -70,12 +72,15 @@ export default function TimerModal() {
         <span>minutes</span>
       </div>
       <button
-        onClick={(e) => {
-          handleStart(e);
+        onClick={async (e) => {
+          const game = await handleStart(e);
+          if (!game) return null;
+          dispatch(setGameId(game.id));
           dispatch(resetTimer());
           dispatch(startTimer());
           dispatch(closeTimerModal());
-          dispatch(resetGame());
+          // dispatch(resetGame());
+
           router.push("./escape-room/1");
         }}
       >
