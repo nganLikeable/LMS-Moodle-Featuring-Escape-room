@@ -84,11 +84,36 @@ export default function Level({ config }: LevelProps) {
   }
 
   // routing logic
-  const handleAdvance = useCallback(() => {
+  const handleAdvance = useCallback(async () => {
     const nextId = config.id + 1;
     if (nextId <= totalLevels) {
       router.push(`/escape-room/${nextId}`);
     } else {
+      try {
+        const response = await fetch(
+          "http://localhost:3001/api/session/finish",
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ gameId }),
+          }
+        );
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          setError(errorData.error || "Failed to finish game.");
+          return;
+        }
+
+        const data = await response.json();
+        console.log("Game finished:", data);
+      } catch (err) {
+        console.error("Finish error:", err);
+        setError("Unexpected error while finishing the game.");
+      }
+
       router.push("/escape-room/complete");
     }
   }, [router, config.id, totalLevels]);

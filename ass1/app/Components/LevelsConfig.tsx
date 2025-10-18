@@ -23,7 +23,7 @@ export const levelsConfig: LevelConfig[] = [
     narrative:
       "Ngan left a flow chart in a snippet. What is the final value of the variable Route after the code executes?",
     puzzleFile: "/puzzles/puzzle2.txt",
-    ans: "123",
+    ans: "GAMMA",
     background: "",
   },
   {
