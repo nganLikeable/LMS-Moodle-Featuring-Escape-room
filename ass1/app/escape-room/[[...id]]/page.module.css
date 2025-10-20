@@ -7,7 +7,7 @@
   color: white;
   z-index: 0;
   background-color: #1e1e1e;
-  padding: 20px; /* Add padding for mobile safety */
+  padding: 20px;
 }
 
 .introContainer::before {

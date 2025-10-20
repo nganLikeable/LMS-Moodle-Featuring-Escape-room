@@ -33,7 +33,7 @@ const HamburgerMenu = () => {
             <Link href="/tab-generator" onClick={handleClick}>
               Tab Generator
             </Link>
-            <Link href="/escape-room" onClick={handleClick}>
+            <Link href="/escape-room/register" onClick={handleClick}>
               Escape Room
             </Link>
           </li>

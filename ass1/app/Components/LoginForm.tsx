@@ -2,7 +2,7 @@
 import { setCookie } from "@/lib/cookies";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
-import styles from "./LoginForm.module.css";
+import styles from "./Auth.module.css";
 export default function LoginForm() {
   const router = useRouter();
 
@@ -58,25 +58,38 @@ export default function LoginForm() {
       <div className={styles.form}>
         <form onSubmit={handleSubmit}>
           <h2 className={styles.title}>Login</h2>
-          <div className={styles.input}>
-            <input
-              type="text"
-              name="username"
-              placeholder="Username"
-              required
-            ></input>
-          </div>
-          <div className={styles.input}>
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              required
-            ></input>
+          <div className={styles.inputGroup}>
+            <div className={styles.input}>
+              <input
+                type="text"
+                name="username"
+                placeholder="Username"
+                required
+              ></input>
+            </div>{" "}
+            <div className={styles.input}>
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                required
+              ></input>
+            </div>
           </div>
           {error && <p className={styles.error}>{error}</p>}
-          <button type="submit">Login</button>
+          <button className={styles.submitBtn} type="submit">
+            Login
+          </button>
         </form>
+        <p className={styles.prompt}>
+          Not a user?{" "}
+          <span
+            className={styles.directLink}
+            onClick={() => router.push("./register")}
+          >
+            Register here
+          </span>
+        </p>
       </div>
     </div>
   );

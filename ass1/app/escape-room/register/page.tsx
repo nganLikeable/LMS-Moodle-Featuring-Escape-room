@@ -8,10 +8,6 @@ export default function RegisterPage() {
   return (
     <div>
       <RegisterForm />
-      <p>Have an account? </p>
-      <button type="button" onClick={() => router.push("./login")}>
-        Log in
-      </button>
     </div>
   );
 }
