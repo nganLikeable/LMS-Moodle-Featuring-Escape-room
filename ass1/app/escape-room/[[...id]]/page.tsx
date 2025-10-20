@@ -1,6 +1,7 @@
 "use client";
 import Level from "@/app/Components/Level";
 import { levelsConfig } from "@/app/Components/LevelsConfig";
+import LogOutButton from "@/app/Components/LogOutButton";
 import TimerDisplay from "@/app/Components/TimerDisplay";
 import TimerEngine from "@/app/Components/TimerEngine";
 import TimerModal from "@/app/Components/TimerModal";
@@ -56,7 +57,10 @@ export default function EscapeRoomStage() {
       {!id ? (
         <Intro />
       ) : config ? (
-        <Level config={config} />
+        <div>
+          <LogOutButton />
+          <Level config={config} />
+        </div>
       ) : (
         <div>
           <TimerEngine />
