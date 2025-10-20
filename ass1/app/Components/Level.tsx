@@ -7,6 +7,7 @@ import { solveLevel } from "../store/gameSlice";
 import { RootState } from "../store/store";
 import styles from "./Level.module.css";
 import { LevelConfig, levelsConfig } from "./LevelsConfig";
+import LogOutButton from "./LogOutButton";
 import TimerDisplay from "./TimerDisplay";
 interface LevelProps {
   config: LevelConfig;
@@ -120,8 +121,13 @@ export default function Level({ config }: LevelProps) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.timer}>
-        <TimerDisplay />
+      <div className={styles.top}>
+        <div className={styles.topItem}>
+          <TimerDisplay />
+        </div>{" "}
+        <div className={styles.topItem}>
+          <LogOutButton />
+        </div>
       </div>
       <div className={styles.narrative}>
         <h1>Chapter {config.id}</h1>

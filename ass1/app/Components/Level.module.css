@@ -32,9 +32,13 @@
 .narrative a:hover {
   color: #1ba7b9;
 }
-.timer {
-  align-self: flex-end;
+.top {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   margin-top: -1rem;
+  width: 100%;
+  align-items: flex-end;
 }
 
 .form {

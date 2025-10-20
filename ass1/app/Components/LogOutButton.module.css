@@ -1,0 +1,25 @@
+.container {
+  font-weight: bold;
+  color: #ff4081;
+  background-color: #3d3b3b;
+  padding: 0rem 0.5rem;
+  border-radius: 8px;
+  text-align: center;
+  width: 100px;
+  box-shadow: 0 0 10px rgba(255, 0, 100, 0.2);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.container button {
+  color: inherit;
+  background-color: transparent;
+  transition: color 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+.container:hover {
+  background-color: #ff4081;
+  color: #3d3b3b;
+}
+.container button:hover {
+  color: #3d3b3b;
+}

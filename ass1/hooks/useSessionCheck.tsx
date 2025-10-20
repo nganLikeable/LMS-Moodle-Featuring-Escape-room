@@ -69,7 +69,8 @@ export function useSessionCheck(showModal: boolean, gameId: number | null) {
         setIsLoading(false);
       }
     }
-    if (showModal && !gameId) {
+    // if (showModal && !gameId) {
+    if (!gameId) {
       console.log("Modal opened, checking active session...");
       setIsLoading(true);
       // Add a small delay to ensure cookies are properly set after login
@@ -77,7 +78,7 @@ export function useSessionCheck(showModal: boolean, gameId: number | null) {
         checkActiveSession();
       }, 100);
     }
-  }, [showModal, gameId]);
+  }, [gameId]);
 
   return { hasActiveSession, activeGame, isLoading };
 }

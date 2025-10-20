@@ -1,5 +1,6 @@
 import { clearCookie } from "@/lib/cookies";
 import { useRouter } from "next/navigation";
+import styles from "./LogOutButton.module.css";
 export async function logOutUser() {
   try {
     await fetch("http://localhost:3001/api/auth/logout", {
@@ -17,10 +18,10 @@ export async function logOutUser() {
 export default function LogOutButton() {
   const router = useRouter();
   return (
-    <div>
+    <div className={styles.container}>
       <button
         onClick={async () => {
-          await logOutUser(), router.push("./escape-room/login");
+          await logOutUser(), router.push("./login");
         }}
       >
         Log out
