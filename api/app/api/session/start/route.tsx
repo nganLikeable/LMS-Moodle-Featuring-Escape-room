@@ -68,19 +68,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // const check if the user has an incomplete session
-    const activeGame = await prisma.game.findFirst({
-      where: {
-        userId: parsedUserId,
-        status: GameStatus.IN_PROGRESS,
-      },
-    });
-
-    // if an active game exists, resume
-    if (activeGame) {
-      return json({ message: "Resuming existing game", game: activeGame });
-    }
-
     const newGame = await prisma.game.create({
       data: {
         userId: parsedUserId,
