@@ -31,6 +31,14 @@ export default function LoginForm() {
 
       if (response.ok) {
         const { user, token } = await response.json(); // product js obj
+
+        // Before setting new user cookies, clear existing ones
+        document.cookie =
+          "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie =
+          "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+        // Then set new cookies
         setCookie("token", token, { maxAge: 3600 });
         setCookie("userId", user.id, { maxAge: 3600 });
         console.log("Login successful: ", user);

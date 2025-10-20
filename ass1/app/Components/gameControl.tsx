@@ -1,8 +1,7 @@
 "use client";
-import { useSessionCheck } from "@/hooks/useSessionCheck";
 import { getCookie } from "@/lib/cookies";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setGameId } from "../store/gameSlice";
 import {
@@ -21,10 +20,88 @@ export default function TimerModal() {
   const [error, setError] = useState("");
 
   const { gameId } = useSelector((state: any) => state.game);
-  const { hasActiveSession, activeGame, isLoading } = useSessionCheck(
-    showModal,
-    gameId
-  );
+  const [hasActiveSession, setHasActiveSession] = useState(false);
+  const [activeGame, setActiveGame] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // check for active session when modal opens
+  async function checkActiveSession() {
+    const token = getCookie("token");
+    const userId = getCookie("userId");
+
+    console.log(
+      "Checking active session for user:",
+      userId,
+      "with token:",
+      token ? "present" : "missing"
+    );
+
+    if (!token) {
+      console.log("No token found, clearing session state");
+      setHasActiveSession(false);
+      setActiveGame(null);
+      return;
+    }
+
+    setIsLoading(true);
+    // Clear previous session state before checking
+    setHasActiveSession(false);
+    setActiveGame(null);
+
+    try {
+      const response = await fetch("http://localhost:3001/api/session/active", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log("Active session API response:", response.status);
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Active session data:", data);
+
+        if (data.hasActiveGame && data.game) {
+          console.log("Setting active game for user:", data.game.userId);
+          setHasActiveSession(true);
+          setActiveGame(data.game);
+        } else {
+          console.log("No active game found");
+          setHasActiveSession(false);
+          setActiveGame(null);
+        }
+      } else {
+        console.log("Failed to get active session:", await response.text());
+        setHasActiveSession(false);
+        setActiveGame(null);
+      }
+    } catch (e: any) {
+      console.error("Error checking active session", e);
+      setHasActiveSession(false);
+      setActiveGame(null);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  // check active session when gameId not available
+  useEffect(() => {
+    if (showModal && !gameId) {
+      console.log("Modal opened, checking active session...");
+      // Clear any previous state when modal opens
+      setError("");
+      setHasActiveSession(false);
+      setActiveGame(null);
+      setIsLoading(true);
+
+      // Add a small delay to ensure cookies are properly set after login
+      setTimeout(() => {
+        checkActiveSession();
+      }, 100);
+    }
+  }, [showModal, gameId]);
 
   async function handleResume() {
     const currentUserId = getCookie("userId");
@@ -50,6 +127,8 @@ export default function TimerModal() {
         currentUserId
       );
       setError("Session mismatch. Please refresh and try again.");
+      setHasActiveSession(false);
+      setActiveGame(null);
       return;
     }
 
