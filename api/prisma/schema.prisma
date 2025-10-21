@@ -23,7 +23,7 @@ model Game {
   lastUpdated  DateTime   @updatedAt
   startTime    DateTime   @default(now())
   status       GameStatus @default(IN_PROGRESS)
-  user         User       @relation(fields: [userId], references: [id])
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade) // when deletinng User records, delete Game
 }
 
 enum GameStatus {

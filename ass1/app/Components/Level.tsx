@@ -5,6 +5,7 @@ import React, { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { solveLevel } from "../store/gameSlice";
 import { RootState } from "../store/store";
+import DeleteUserButton from "./DeleteAccountButton";
 import styles from "./Level.module.css";
 import { LevelConfig, levelsConfig } from "./LevelsConfig";
 import LogOutButton from "./LogOutButton";
@@ -127,6 +128,9 @@ export default function Level({ config }: LevelProps) {
         </div>{" "}
         <div className={styles.topItem}>
           <LogOutButton />
+        </div>
+        <div className={styles.topItem}>
+          <DeleteUserButton />
         </div>
       </div>
       <div className={styles.narrative}>

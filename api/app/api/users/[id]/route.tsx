@@ -42,7 +42,6 @@ export async function DELETE(
       where: { id },
     });
 
-    // 1. Check if user exists FIRST
     if (!user) {
       return jsonError("User not found", 404);
     }
