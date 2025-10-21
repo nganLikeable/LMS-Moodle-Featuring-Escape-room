@@ -157,7 +157,11 @@ export default function Level({ config }: LevelProps) {
       ) : (
         // unsolved form
         <div className={styles.form}>
-          {feedback && <p className={styles.feedback}>{feedback}</p>}
+          {feedback && (
+            <p className={styles.feedback} data-testid="feedback">
+              {feedback}
+            </p>
+          )}
 
           <form onSubmit={handleSubmit}>
             <input
