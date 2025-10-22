@@ -1,9 +1,9 @@
 {
-  "/about/page": "app/about/page.js",
-  "/page": "app/page.js",
   "/login/page": "app/login/page.js",
   "/escape-room/register/page": "app/escape-room/register/page.js",
+  "/page": "app/page.js",
   "/escape-room/[[...id]]/page": "app/escape-room/[[...id]]/page.js",
+  "/about/page": "app/about/page.js",
   "/escape-room/complete/page": "app/escape-room/complete/page.js",
   "/escape-room/login/page": "app/escape-room/login/page.js"
 }
