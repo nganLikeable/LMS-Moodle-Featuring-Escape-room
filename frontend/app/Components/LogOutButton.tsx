@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import styles from "./LogOutButton.module.css";
 export async function logOutUser() {
   try {
-    await fetch("http://ec2-174-129-49-28.compute-1.amazonaws.com:4080/api/auth/logout", {
+    await fetch("http://ec2-98-93-8-168.compute-1.amazonaws.com:4080/api/auth/logout", {
       method: "POST",
       credentials: "include",
     });

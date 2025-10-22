@@ -6,10 +6,10 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setGameId } from "../store/gameSlice";
 import {
-    closeTimerModal,
-    resetTimer,
-    setCustomMinutes,
-    startTimer,
+  closeTimerModal,
+  resetTimer,
+  setCustomMinutes,
+  startTimer,
 } from "../store/timerSlice";
 import styles from "./TimerModal.module.css";
 
@@ -85,7 +85,7 @@ export default function TimerModal() {
     }
 
     try {
-      const response = await fetch("http://ec2-174-129-49-28.compute-1.amazonaws.com:4080/api/session/start", {
+      const response = await fetch("http://ec2-98-93-8-168.compute-1.amazonaws.com:4080/api/session/start", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

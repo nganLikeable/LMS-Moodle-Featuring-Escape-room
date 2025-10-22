@@ -50,7 +50,7 @@ export default function Level({ config }: LevelProps) {
       try {
         // PATCH to update level
         const response = await fetch(
-          "http://ec2-174-129-49-28.compute-1.amazonaws.com:4080/api/session/update",
+          "http://ec2-98-93-8-168.compute-1.amazonaws.com:4080/api/session/update",
           {
             method: "PATCH",
 
@@ -93,7 +93,7 @@ export default function Level({ config }: LevelProps) {
     } else {
       try {
         const response = await fetch(
-          "http://ec2-174-129-49-28.compute-1.amazonaws.com:4080/api/session/finish",
+          "http://ec2-98-93-8-168.compute-1.amazonaws.com:4080/api/session/finish",
           {
             method: "PATCH",
             headers: {

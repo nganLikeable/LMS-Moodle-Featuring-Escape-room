@@ -24,6 +24,18 @@ services:
     volumes:
       - ./api:/app
       - /api/node_modules
+  prisma-studio:
+    build: ./api
+    ports:
+      - "5555:5555"
+    depends_on:
+      - postgres
+    environment:
+      - DATABASE_URL=postgresql://user:password@postgres:5432/my_db
+    command: npx prisma studio --port 5555 --hostname 0.0.0.0
+    volumes:
+      - ./api:/app
+
   postgres:
     image: postgres:15
     environment:
