@@ -21,7 +21,7 @@ test.afterAll(async ({ request }) => {
       for (const userId of createdUserIds) {
         try {
           const deleteResponse = await request.delete(
-            `http://ec2-34-239-246-31.compute-1.amazonaws.com:4080/api/users/${userId}`
+            `http://ec2-3-86-173-183.compute-1.amazonaws.com:4080/api/users/${userId}`
           );
           if (deleteResponse.ok()) {
             console.log(`Deleted user ID: ${userId}`);
@@ -52,7 +52,7 @@ test.describe("Register Page", () => {
     password = "123456";
 
     // should pass
-    const res1 = await request.post("http://ec2-34-239-246-31.compute-1.amazonaws.com:4080/api/auth/register", {
+    const res1 = await request.post("http://ec2-3-86-173-183.compute-1.amazonaws.com:4080/api/auth/register", {
       data: { username: username1, password },
     });
     expect(res1.status()).toBe(201);
@@ -67,7 +67,7 @@ test.describe("Register Page", () => {
     }
 
     // should fail - username already taken
-    const res2 = await request.post("http://ec2-34-239-246-31.compute-1.amazonaws.com:4080/api/auth/register", {
+    const res2 = await request.post("http://ec2-3-86-173-183.compute-1.amazonaws.com:4080/api/auth/register", {
       data: { username: username2, password },
     });
     expect(res2.status()).toBeGreaterThanOrEqual(400);
@@ -78,14 +78,14 @@ test.describe("Login Page ", () => {
   test("should allow new user to create a new account and raise error if username is already taken.", async ({
     request,
   }) => {
-    const res1 = await request.post("http://ec2-34-239-246-31.compute-1.amazonaws.com:4080/api/auth/login", {
+    const res1 = await request.post("http://ec2-3-86-173-183.compute-1.amazonaws.com:4080/api/auth/login", {
       data: { username: username1, password },
     });
     expect(res1.status()).toBe(200);
 
     // should fail - wrong password
     password = "1234";
-    const res2 = await request.post("http://ec2-34-239-246-31.compute-1.amazonaws.com:4080/api/auth/login", {
+    const res2 = await request.post("http://ec2-3-86-173-183.compute-1.amazonaws.com:4080/api/auth/login", {
       data: { username: username1, password },
     });
     expect(res2.status()).toBeGreaterThanOrEqual(400);

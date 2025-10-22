@@ -49,7 +49,7 @@ export default function TimerModal() {
     setActiveGame(null);
 
     try {
-      const response = await fetch("http://ec2-34-239-246-31.compute-1.amazonaws.com:4080/api/session/active", {
+      const response = await fetch("http://ec2-3-86-173-183.compute-1.amazonaws.com:4080/api/session/active", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -164,7 +164,7 @@ export default function TimerModal() {
     }
 
     try {
-      const response = await fetch("http://ec2-34-239-246-31.compute-1.amazonaws.com:4080/api/session/start", {
+      const response = await fetch("http://ec2-3-86-173-183.compute-1.amazonaws.com:4080/api/session/start", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

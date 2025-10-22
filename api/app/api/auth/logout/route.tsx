@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 const corsHeaders = {
-  "Access-Control-Allow-Origin": "http://ec2-34-239-246-31.compute-1.amazonaws.com",
+  "Access-Control-Allow-Origin": "http://ec2-3-86-173-183.compute-1.amazonaws.com",
   "Access-Control-Allow-Credentials": "true",
   "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type, Authorization",
