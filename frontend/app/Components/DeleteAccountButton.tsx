@@ -4,7 +4,7 @@ import styles from "./LogOutButton.module.css";
 
 async function deleteUser(id: string) {
   try {
-    const response = await fetch(`http://localhost:3001/api/users/${id}`, {
+    const response = await fetch(`http://ec2-174-129-49-28.compute-1.amazonaws.com:4080/api/users/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
