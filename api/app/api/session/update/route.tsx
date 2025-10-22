@@ -49,6 +49,7 @@ export async function PATCH(request: NextRequest) {
         where: { id: gameId },
         data: {
           currentLevel: newLevel,
+          lastUpdated: new Date(),
         },
       });
       return json(updatedGame, { status: 200 });
@@ -57,6 +58,7 @@ export async function PATCH(request: NextRequest) {
         where: { id: gameId },
         data: {
           status: GameStatus.COMPLETED,
+          lastUpdated: new Date(),
         },
       });
       return json(updatedGame, { status: 200 });

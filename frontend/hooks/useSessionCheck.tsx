@@ -31,7 +31,7 @@ export function useSessionCheck(showModal: boolean, gameId: number | null) {
       setActiveGame(null);
       try {
         const response = await fetch(
-          "https://ec2-98-93-8-168.compute-1.amazonaws.com:4080/api/session/active",
+          "http://ec2-34-239-246-31.compute-1.amazonaws.com:4080/api/session/active",
           {
             method: "GET",
             headers: {

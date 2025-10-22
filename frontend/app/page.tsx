@@ -1,7 +1,7 @@
 // app/page.tsx
 'use client'
   
-const APIURL = "http://ec2-18-213-4-198.compute-1.amazonaws.com";
+const APIURL = "http://ec2-34-239-246-31.compute-1.amazonaws.com:4080";
 
 export default function Home() {
   return ;

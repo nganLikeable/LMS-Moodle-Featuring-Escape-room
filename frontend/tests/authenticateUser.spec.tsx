@@ -12,14 +12,36 @@ test.beforeEach(async () => {
 });
 
 // Hook to run after each test
-test.afterEach(async ({ request }) => {
+// delete accounts after tests to avoid dumping data
+test.afterAll(async ({ request }) => {
   console.log("After each test");
-  // Clean up after each test if needed
+  
+  try {
+    if (createdUserIds.length > 0) {
+      for (const userId of createdUserIds) {
+        try {
+          const deleteResponse = await request.delete(
+            `http://ec2-34-239-246-31.compute-1.amazonaws.com:4080/api/users/${userId}`
+          );
+          if (deleteResponse.ok()) {
+            console.log(`Deleted user ID: ${userId}`);
+          }
+        } catch (error) {
+          console.log(`Failed to delete user ID ${userId}:`, error);
+        }
+      }
+      // clear the array after cleanup
+      createdUserIds.length = 0;
+    }
+  } catch (error) {
+    console.log("Error during user cleanup:", error);
+  }
 });
 
 let username1 = "";
 let username2 = "";
 let password = "";
+let createdUserIds: number[] = []; // Track created user IDs for cleanup
 
 test.describe("Register Page", () => {
   test("should allow new user to create a new account and raise error if username is already taken.", async ({
@@ -30,13 +52,22 @@ test.describe("Register Page", () => {
     password = "123456";
 
     // should pass
-    const res1 = await request.post("http://ec2-98-93-8-168.compute-1.amazonaws.com:4080/api/auth/register", {
+    const res1 = await request.post("http://ec2-34-239-246-31.compute-1.amazonaws.com:4080/api/auth/register", {
       data: { username: username1, password },
     });
     expect(res1.status()).toBe(201);
+    
+    // Extract user ID from response for cleanup
+    if (res1.ok()) {
+      const userData = await res1.json();
+      if (userData.id) {
+        createdUserIds.push(userData.id);
+        console.log(`Created user ID ${userData.id} for cleanup`);
+      }
+    }
 
     // should fail - username already taken
-    const res2 = await request.post("http://ec2-98-93-8-168.compute-1.amazonaws.com:4080/api/auth/register", {
+    const res2 = await request.post("http://ec2-34-239-246-31.compute-1.amazonaws.com:4080/api/auth/register", {
       data: { username: username2, password },
     });
     expect(res2.status()).toBeGreaterThanOrEqual(400);
@@ -47,16 +78,18 @@ test.describe("Login Page ", () => {
   test("should allow new user to create a new account and raise error if username is already taken.", async ({
     request,
   }) => {
-    const res1 = await request.post("http://ec2-98-93-8-168.compute-1.amazonaws.com:4080/api/auth/login", {
+    const res1 = await request.post("http://ec2-34-239-246-31.compute-1.amazonaws.com:4080/api/auth/login", {
       data: { username: username1, password },
     });
     expect(res1.status()).toBe(200);
 
     // should fail - wrong password
     password = "1234";
-    const res2 = await request.post("http://ec2-98-93-8-168.compute-1.amazonaws.com:4080/api/auth/login", {
+    const res2 = await request.post("http://ec2-34-239-246-31.compute-1.amazonaws.com:4080/api/auth/login", {
       data: { username: username1, password },
     });
     expect(res2.status()).toBeGreaterThanOrEqual(400);
   });
 });
+
+

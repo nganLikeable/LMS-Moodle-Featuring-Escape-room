@@ -27,7 +27,7 @@ export default function LoginForm() {
 
       try {
         // send POST request to login API endpoint
-        const response = await fetch("http://ec2-98-93-8-168.compute-1.amazonaws.com:4080/api/auth/login", {
+        const response = await fetch("http://ec2-34-239-246-31.compute-1.amazonaws.com:4080/api/auth/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
