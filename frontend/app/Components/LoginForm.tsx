@@ -19,15 +19,21 @@ export default function LoginForm() {
     const username = formData.get("username");
     const password = formData.get("password");
 
-    try {
-      // send POST request to login API endpoint
-      const response = await fetch("http://ec2-174-129-49-28.compute-1.amazonaws.com:4080/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password })
-      });
+    // await createSpan('user-login', async () => {
+    //   addSpanAttributes({
+    //     'user.username': username as string,
+    //     'login.attempt': 'true'
+    //   });
+
+      try {
+        // send POST request to login API endpoint
+        const response = await fetch("http://ec2-174-129-49-28.compute-1.amazonaws.com:4080/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password })
+        });
 
       if (response.ok) {
         const { user, token } = await response.json(); // product js obj
@@ -42,16 +48,22 @@ export default function LoginForm() {
         setCookie("token", token, { maxAge: 3600 });
         setCookie("userId", user.id, { maxAge: 3600 });
         console.log("Login successful: ", user);
+        // addSpanAttributes({ 'login.success': 'true', 'user.id': user.id });
         router.push("./");
       } else {
         const errorData = await response.json();
+        // addSpanAttributes({ 'login.success': 'false', 'login.error': errorData.error });
         setError(errorData.error || "Login failed. Please try again");
       }
-    } catch (e) {
-      setError("Unexpected error occurred. Please try again.");
-      console.error(e);
-    }
-  }
+      } catch (e) {
+        // addSpanAttributes({ 'login.success': 'false', 'login.error': 'network_error' });
+        setError("Unexpected error occurred. Please try again.");
+        console.error(e);
+        throw e;
+      }
+    };
+  
+  
 
   return (
     <div className={styles.container}>
