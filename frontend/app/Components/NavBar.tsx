@@ -9,7 +9,7 @@ export default function NavBar() {
       <div className={styles.container}>
         <HamburgerMenu />
         <Link href="/about">About </Link>
-        <Link href="/escape-room">Escape Room</Link>
+        <Link href="/escape-room/register">Escape Room</Link>
         <Link href="/tab-generator">Tab Generator</Link>
       </div>
     </nav>

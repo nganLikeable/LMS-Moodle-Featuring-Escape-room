@@ -1,6 +1,6 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
   "/page": "app/page.js",
+  "/about/page": "app/about/page.js",
   "/escape-room/register/page": "app/escape-room/register/page.js",
   "/escape-room/[[...id]]/page": "app/escape-room/[[...id]]/page.js"
 }

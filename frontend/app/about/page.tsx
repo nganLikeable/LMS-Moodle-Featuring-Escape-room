@@ -3,10 +3,10 @@ import styles from "./about.module.css";
 export default function About() {
   return (
     <div className={styles.container}>
-      <div className={styles.studentInfo}>
-        {/* <p>Name: Ngoc Kim Ngan Nguyen</p>
-        <p>StudentId: 21519232</p> */}
-      </div>
+      {/* <div className={styles.studentInfo}>
+        <p>Name: Ngoc Kim Ngan Nguyen</p>
+        <p>StudentId: 21519232</p>
+      </div> */}
       <div className={styles.vid}>
         <iframe
           width="600"
@@ -22,6 +22,13 @@ export default function About() {
           View Videos on Google Drive
         </Link>
       </div>
+            <div className={styles.videoLink}>
+        <p>Link to Git repository:</p>
+        <Link href="https://github.com/nganLikeable/cwa-assignment1" target="_blank">
+          View repository
+        </Link>
+      </div>
+
     </div>
   );
 }
