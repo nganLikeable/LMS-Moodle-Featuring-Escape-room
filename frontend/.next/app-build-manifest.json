@@ -1,0 +1,62 @@
+{
+  "pages": {
+    "/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
+    ],
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
+    ],
+    "/escape-room/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/escape-room/layout.css",
+      "static/chunks/app/escape-room/layout.js"
+    ],
+    "/escape-room/register/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/escape-room/register/page.css",
+      "static/chunks/app/escape-room/register/page.js"
+    ],
+    "/about/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/about/page.css",
+      "static/chunks/app/about/page.js"
+    ],
+    "/tab-generator/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/tab-generator/page.css",
+      "static/chunks/app/tab-generator/page.js"
+    ],
+    "/escape-room/login/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/escape-room/login/page.css",
+      "static/chunks/app/escape-room/login/page.js"
+    ],
+    "/escape-room/[[...id]]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/escape-room/[[...id]]/page.css",
+      "static/chunks/app/escape-room/[[...id]]/page.js"
+    ],
+    "/escape-room/complete/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/escape-room/complete/page.css",
+      "static/chunks/app/escape-room/complete/page.js"
+    ],
+    "/login/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/login/page.js"
+    ]
+  }
+}
