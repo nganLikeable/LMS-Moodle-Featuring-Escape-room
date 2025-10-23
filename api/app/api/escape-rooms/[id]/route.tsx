@@ -37,14 +37,14 @@ export async function POST(request: NextRequest) {
     }
 
     // check if session exists
-    const gameSession = await prisma.gameSession.findUnique({ where: { id } });
+    const gameSession = await prisma.game.findUnique({ where: { id } });
 
     if (gameSession) {
       return jsonError("Level exists", 409);
     }
 
     // create new game session
-    const newSession = await prisma.gameSession.create({
+    const newSession = await prisma.game.create({
       data: { userId: userId, currentLevel: currentLevel },
     });
 
